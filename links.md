@@ -13,3 +13,7 @@
 
 ## Videos 
 
+## Datasets 
+
+- [List of OMR Datasets](https://github.com/apacha/OMR-Datasets)
+

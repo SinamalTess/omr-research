@@ -81,8 +81,11 @@ When using neural networks, the algorithm is a set of layers of neurons with ‘
 ## Tensors
 
 The primary data structure in TensorFlow programs.
-Tensors are N-dimensional (where N could be very large) data structures, most commonly scalars, vectors, or matrices.
-The elements of a Tensor can hold `integer`, `floating-point`, or `string` values.
+Tensors are N-dimensional (where N could be very large) data structures, most commonly scalars, vectors, or 3D matrices or N-dimensional matrices.
+The elements of a Tensor are : 
+- Its type :  `integer`, `floating-point`, or `string` ...
+- Its shape : The dimensions of the data, for example : `()` for scalar, `(n)` for vectors, `(n,m)` for 2D matrix of size `n x m` 
+- Its rank : number of dimensions `0` for scalar, `1` for vector, `2` for 2D matrix.
 
 ![Neural Network](./imgs/scalar-vector-matrix-tensor.jpeg)
 
