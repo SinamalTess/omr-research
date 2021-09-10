@@ -13,6 +13,10 @@
 
 ## Videos 
 
+## Articles 
+
+- [Image kernels](https://setosa.io/ev/image-kernels/)
+
 ## Datasets 
 
 - [List of OMR Datasets](https://github.com/apacha/OMR-Datasets)
