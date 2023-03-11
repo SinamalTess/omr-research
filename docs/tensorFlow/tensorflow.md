@@ -29,9 +29,36 @@ or alternatively "what algorithm will our model uses to compute its answers".
 
 - [See types of models](model_types.md)
 
+You will create a sequential model like so :
+
+```ts
+const model = tf.sequential();
+```
+
 ### Layers
 
 - [See types of layers](layer_types.md)
+
+You can add an input dense layer to a model like so :
+
+```ts
+model.add(tf.layers.dense(
+    {
+      inputShape: [1], 
+      units: 1, 
+      useBias: true
+    }
+));
+
+// inputShape : Dimensions and elements your input tensor has. [30,4,10] = 3 dimensions, of 30 elements in the first, 4 in the second and 10 in the third.
+// units : number of neurons on the layer
+// useBias : defaults to true 
+```
+
+You could add an output layer with just one number as output like so : 
+```ts
+model.add(tf.layers.dense({units: 1})); 
+```
 
 ### Prepare for training
 

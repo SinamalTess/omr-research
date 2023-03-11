@@ -9,8 +9,3 @@ Other kinds of models (for example functional) can have branches, or even multip
 Sequential models also have an easier to use API.
 
 ![sequential_vs_functional_models](../../imgs/sequential_vs_functional_models.png)
-
-A sequential model is created with : 
-```ts
-const model = tf.sequential();
-```
