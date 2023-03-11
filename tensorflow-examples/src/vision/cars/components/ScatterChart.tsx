@@ -1,38 +1,34 @@
 import {
   CartesianGrid,
   Scatter,
-  ScatterChart as RechartScatterChart,
+  ScatterChart as ReScatterChart,
   Tooltip,
+  Legend,
   XAxis,
   YAxis,
-  Legend,
 } from "recharts";
-
-interface Coordinates {
-  x: number;
-  y: number;
-  z: number;
-}
+import { Coordinates } from "../domain/coordinates.entity";
+import { ChartOptions } from "../../types/ChartOptions";
+import React from "react";
 
 interface ScatterChartProps {
   data: Coordinates[];
-  xLabel: string;
-  yLabel: string;
-  name: string;
+  options: ChartOptions;
 }
 
-export const ScatterChart = ({ data, xLabel, yLabel, name }: ScatterChartProps) => {
+export const ScatterChart = ({ data, options }: ScatterChartProps) => {
+  const { name, yLabel, xLabel } = options;
   return (
     // @ts-ignore
-      <RechartScatterChart height={500} width={500}>
-        <CartesianGrid />
-        {/* @ts-ignore */}
-        <XAxis type="number" dataKey="x" name={xLabel} unit={xLabel} />
-        {/* @ts-ignore */}
-        <YAxis type="number" dataKey="y" name={yLabel} unit={yLabel} />
-        <Legend />
-        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-        <Scatter name={name} data={data} fill="#8884d8" />
-      </RechartScatterChart>
+    <ReScatterChart height={500} width={500}>
+      <CartesianGrid />
+      {/* @ts-ignore */}
+      <XAxis type="number" dataKey="x" name={xLabel} unit={xLabel} />
+      {/* @ts-ignore */}
+      <YAxis type="number" dataKey="y" name={yLabel} unit={yLabel} />
+      <Legend />
+      <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+      <Scatter name={name} data={data} fill="#8884d8" />
+    </ReScatterChart>
   );
 };
