@@ -3,21 +3,24 @@ import { ModelSummary } from "../components/Table";
 import React, { useState } from "react";
 import { useData } from "../http/useData";
 import { dataToChartData } from "../adapters";
-import { getModel, useTrainModel } from "../model";
+import { getModel, startTraining } from "../model";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
 import { TrainingData } from "../../types/TrainingData";
+import { Button, Grid, Typography } from "@mui/material";
+
+const model = getModel();
+
+const options = {
+  yLabel: "mpg",
+  xLabel: "hp",
+};
 
 export const Home = () => {
   const [data] = useData();
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
   const [predictions, setPredictions] = useState<any[]>([]);
   const chartData = dataToChartData(data);
-  const options = {
-    yLabel: "mpg",
-    xLabel: "hp",
-  };
-  const model = getModel();
 
   const handleEpochEnd = (trainingData: TrainingData) => {
     setDataTraining((prevState) => [...prevState, trainingData]);
@@ -27,14 +30,32 @@ export const Home = () => {
     setPredictions(predictions);
   };
 
-  useTrainModel(model, data, handleEpochEnd, handleTrainingEnd);
+  const handleClick = () => {
+    setDataTraining([])
+    setPredictions([])
+    startTraining(model, data, handleEpochEnd, handleTrainingEnd);
+  }
 
   return (
     <div className="App">
       <Dashboard>
-        <ModelSummary model={model} />
-        <DataPreview data={chartData} options={options} predictions={predictions}/>
-        <TrainingPreview data={dataTraining} />
+        <Grid item xs={12}>
+          <Typography variant="h2" component="h2">
+            Horsepower vs MPG
+          </Typography>
+          <Button onClick={handleClick}>Run model</Button>
+        </Grid>
+        <Grid item xs={8}>
+          <DataPreview
+            data={chartData}
+            options={options}
+            predictions={predictions}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <ModelSummary model={model} />
+          <TrainingPreview data={dataTraining} />
+        </Grid>
       </Dashboard>
     </div>
   );

@@ -29,23 +29,19 @@ const trainModel = async (
   });
 };
 
-export const useTrainModel = (
+export const startTraining = (
   model: tf.LayersModel,
   data: NormalizedCar[],
   onEpochEnd: Function,
   onTrainingEnd: Function
 ) => {
-  useEffect(() => {
-    if (!data.length) return;
-    // Convert the data to a form we can use for training.
-    const tensors = getPreparedData(data);
-    const { normalizedInputs, normalizedLabels } = tensors;
+  if (!data.length) return;
+  // Convert the data to a form we can use for training.
+  const tensors = getPreparedData(data);
+  const { normalizedInputs, normalizedLabels } = tensors;
 
-    trainModel(model, normalizedInputs, normalizedLabels, onEpochEnd).then(
-      () => {
-        const predictedPoints = testModel(model, data, tensors);
-        onTrainingEnd(predictedPoints)
-      }
-    );
-  }, [data]);
+  trainModel(model, normalizedInputs, normalizedLabels, onEpochEnd).then(() => {
+    const predictedPoints = testModel(model, data, tensors);
+    onTrainingEnd(predictedPoints);
+  });
 };
