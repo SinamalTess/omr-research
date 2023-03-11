@@ -35,10 +35,10 @@ export function useTrainModel(data: NormalizedCar[]) {
     if (!data.length) return;
     // Convert the data to a form we can use for training.
     const tensors = dataToTensors(data);
-    const { inputs, labels } = tensors;
+    const { normalizedInputs, normalizedLabels } = tensors;
     const model = getModel();
 
-    trainModel(model, inputs, labels).then(() =>
+    trainModel(model, normalizedInputs, normalizedLabels).then(() =>
       testModel(model, data, tensors)
     );
   }, [data]);
