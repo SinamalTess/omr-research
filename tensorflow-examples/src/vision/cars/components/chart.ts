@@ -23,6 +23,6 @@ async function plotChart() {
 
 export function useChart() {
   useEffect(() => {
-    plotChart().then();
+    plotChart();
   }, []);
 }

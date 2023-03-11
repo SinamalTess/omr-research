@@ -18,6 +18,6 @@ export function createModel() {
 export function useShowModel() {
   useEffect(() => {
     const model = createModel();
-    tfvis.show.modelSummary({ name: "Model Summary" }, model).then();
+    tfvis.show.modelSummary({ name: "Model Summary" }, model);
   }, []);
 }
