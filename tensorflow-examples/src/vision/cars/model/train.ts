@@ -1,6 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
 import { useEffect } from "react";
-import { dataToTensors } from "../adapters";
+import { getPreparedData } from "../adapters";
 import { Tensor } from "@tensorflow/tfjs";
 import { NormalizedCar } from "../domain";
 import { compileModel } from "./compile";
@@ -37,7 +37,7 @@ export function useTrainModel(
   useEffect(() => {
     if (!data.length) return;
     // Convert the data to a form we can use for training.
-    const tensors = dataToTensors(data);
+    const tensors = getPreparedData(data);
     const { normalizedInputs, normalizedLabels } = tensors;
 
     trainModel(model, normalizedInputs, normalizedLabels, onEpochEnd).then(() =>

@@ -1,25 +1,15 @@
-import * as tf from "@tensorflow/tfjs";
 import { NormalizedCar } from "../domain";
-import { normalizeData } from "./normalizeData";
+import * as tf from "@tensorflow/tfjs";
 
-export function dataToTensors(data: NormalizedCar[]) {
-  // Wrapping these calculations in a tidy will dispose any
-  // intermediate tensors.
+export const dataToTensors = (data: NormalizedCar[]) => {
+  const inputs = data.map((d) => d.horsepower);
+  const labels = data.map((d) => d.mpg);
 
-  return tf.tidy(() => {
-    // Step 1. Shuffle the data
-    tf.util.shuffle(data);
+  const inputTensor = tf.tensor2d(inputs, [inputs.length, 1]);
+  const labelTensor = tf.tensor2d(labels, [labels.length, 1]);
 
-    // Step 2. Convert data to Tensor
-    const inputs = data.map((d) => d.horsepower);
-    const labels = data.map((d) => d.mpg);
-
-    const inputTensor = tf.tensor2d(inputs, [inputs.length, 1]);
-    const labelTensor = tf.tensor2d(labels, [labels.length, 1]);
-
-    return normalizeData({
-        inputTensor,
-        labelTensor,
-    });
-  });
-}
+  return {
+    inputTensor,
+    labelTensor,
+  };
+};

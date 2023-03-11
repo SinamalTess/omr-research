@@ -1,2 +1,2 @@
-export * from "./dataToTensors";
+export * from "./getPreparedData";
 export * from "./dataToChartData";

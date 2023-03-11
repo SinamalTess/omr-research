@@ -24,11 +24,11 @@ export const Home = () => {
   };
   const model = getModel();
 
-  const handleNewTrainingData = (trainingData: TrainingData) => {
+  const handleTrainingData = (trainingData: TrainingData) => {
     setDataTraining((prevState) => [...prevState, trainingData]);
   };
 
-  useTrainModel(model, data, handleNewTrainingData);
+  useTrainModel(model, data, handleTrainingData);
 
   return (
     <div className="App">
