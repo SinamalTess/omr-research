@@ -1,12 +1,13 @@
 import {
-    CartesianGrid,
-    Legend,
-    Line,
-    LineChart as ReLineChart, Tooltip,
-    XAxis,
-    YAxis,
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart as ReLineChart,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
-import { BaseChartOptions } from "../../types/ChartOptions";
+import { BaseChartOptions } from "../../types/BaseChartOptions";
 import React from "react";
 
 export interface LineChartOptions extends BaseChartOptions {

@@ -7,9 +7,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Coordinates } from "../domain/coordinates.entity";
+import { Coordinates } from "../domain";
 import React from "react";
-import { BaseChartOptions } from "../../types/ChartOptions";
+import { BaseChartOptions } from "../../types/BaseChartOptions";
 
 export interface ScatterChartOptions extends BaseChartOptions {
   xLabel: string;
