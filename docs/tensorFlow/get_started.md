@@ -8,5 +8,7 @@
   - Define the input layer 
   - Define the hidden layers 
   - Define the ouput layer 
-- Train your model on your data 
-- Now the model is ready to make predictions
+- [Compile the model](compiling_a_model.md)
+- [Train your model on your data](training_a_model.md)
+- Inspect the results of your training 
+- Now the model is ready to make predictions, enjoy! 
