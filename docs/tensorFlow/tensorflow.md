@@ -27,31 +27,11 @@ It is composed of an `arquitecture`, `matrix weights` and `parameters`
 The `architecture` is just a fancy way of saying "which functions will the model run when it is executing",
 or alternatively "what algorithm will our model uses to compute its answers".
 
-### Types of models
-
-#### Sequential models
-
-A model where its inputs flow straight down to its output. 
-
-Other kinds of models can have branches, or even multiple inputs and outputs, but in many cases your models will be sequential. Sequential models also have an easier to use API.
-
-![sequential_vs_functional_models](../../imgs/sequential_vs_functional_models.png)
-
+- [See types of models](model_types.md)
 
 ### Layers
 
-#### Types of layers
-
-##### Dense
-
-A dense layer is a type of layer that multiplies its inputs by a matrix (called weights) and then adds a number (called the bias) to the result.
-
-##### Conv2d
-
-You can build an image classifier using only dense layers, however, convolutional layers have proven effective for many image based tasks.
-
-- [Image Kernels Explained Visually](https://setosa.io/ev/image-kernels/)
-- [Convolutional Neural Networks for Visual Recognition](https://cs231n.github.io/convolutional-networks/)
+- [See types of layers](layer_types.md)
 
 ### Prepare for training
 
