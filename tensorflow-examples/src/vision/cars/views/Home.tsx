@@ -7,18 +7,23 @@ import { getModel, startTraining } from "../model";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
 import { TrainingData } from "../../types/TrainingData";
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import { TrainButton } from "../components/TrainButton";
 
 const options = {
   yLabel: "mpg",
   xLabel: "hp",
 };
 
+type TrainingStatus = "waiting" | "training" | "done";
+
 export const Home = () => {
   const [data] = useData();
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
   const [predictions, setPredictions] = useState<any[]>([]);
   const [model, setModel] = useState(getModel());
+  const [trainingStatus, setTrainingStatus] =
+    useState<TrainingStatus>("waiting");
   const chartData = dataToChartData(data);
 
   const handleEpochEnd = (trainingData: TrainingData) => {
@@ -27,23 +32,33 @@ export const Home = () => {
 
   const handleTrainingEnd = (predictions: any[]) => {
     setPredictions(predictions);
+    setTrainingStatus("done");
   };
 
   const handleClick = () => {
-    setModel(getModel())
+    setTrainingStatus("training");
+    setModel(getModel());
     setDataTraining([]);
     setPredictions([]);
     startTraining(model, data, handleEpochEnd, handleTrainingEnd);
   };
 
+  const isTraining = trainingStatus === "training";
+
   return (
     <div className="App">
       <Dashboard>
-        <Grid container item xs={12} justifyContent={"space-between"} alignItems={'center'}>
+        <Grid
+          container
+          item
+          xs={12}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
           <Typography variant="h2" component="h2">
             Horsepower vs MPG (miles per gallon)
           </Typography>
-          <Button onClick={handleClick}>Train model</Button>
+          <TrainButton isLoading={isTraining} onClick={handleClick} />
         </Grid>
         <Grid item xs={8}>
           <DataPreview
