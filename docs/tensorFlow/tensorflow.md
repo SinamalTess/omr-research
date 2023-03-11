@@ -31,9 +31,11 @@ or alternatively "what algorithm will our model uses to compute its answers".
 
 #### Sequential models
 
-A model where its inputs flow straight down to its output.
-Other kinds of models can have branches, or even multiple inputs and outputs, but in many cases your models will be sequential.
-Sequential models also have an easier to use API.
+A model where its inputs flow straight down to its output. 
+
+Other kinds of models can have branches, or even multiple inputs and outputs, but in many cases your models will be sequential. Sequential models also have an easier to use API.
+
+
 
 ### Layers
 
