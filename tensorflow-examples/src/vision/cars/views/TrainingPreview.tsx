@@ -6,6 +6,12 @@ interface TrainingPreviewProps {
   data: TrainingData[];
 }
 
+const getOptions = (label: "mse" | "loss") => ({
+  yLabel: label,
+  xLabel: "epoch",
+  dataKeys: [label],
+});
+
 export const TrainingPreview = ({ data }: TrainingPreviewProps) => {
   const lossData = data.map((value) => ({
     loss: value.loss,
@@ -17,17 +23,8 @@ export const TrainingPreview = ({ data }: TrainingPreviewProps) => {
     epoch: value.epoch,
   }));
 
-  const optionsLoss = {
-    yLabel: "loss",
-    xLabel: "epoch",
-    dataKeys: ["loss"],
-  };
-
-  const optionsMse = {
-    yLabel: "mse",
-    xLabel: "epoch",
-    dataKeys: ["mse"],
-  };
+  const optionsLoss = getOptions("loss");
+  const optionsMse = getOptions("mse");
 
   return (
     <>
