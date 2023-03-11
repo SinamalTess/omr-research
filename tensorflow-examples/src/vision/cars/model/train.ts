@@ -1,5 +1,4 @@
 import * as tf from "@tensorflow/tfjs";
-import { useEffect } from "react";
 import { getPreparedData } from "../adapters";
 import { Tensor } from "@tensorflow/tfjs";
 import { NormalizedCar } from "../domain";

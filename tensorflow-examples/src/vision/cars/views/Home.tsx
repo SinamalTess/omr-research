@@ -31,17 +31,17 @@ export const Home = () => {
   };
 
   const handleClick = () => {
-    setDataTraining([])
-    setPredictions([])
+    setDataTraining([]);
+    setPredictions([]);
     startTraining(model, data, handleEpochEnd, handleTrainingEnd);
-  }
+  };
 
   return (
     <div className="App">
       <Dashboard>
-        <Grid item xs={12}>
+        <Grid container item xs={12} justifyContent={"space-between"} alignItems={'center'}>
           <Typography variant="h2" component="h2">
-            Horsepower vs MPG
+            Horsepower vs MPG (miles per gallon)
           </Typography>
           <Button onClick={handleClick}>Run model</Button>
         </Grid>
