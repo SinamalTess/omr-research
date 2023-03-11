@@ -25,15 +25,7 @@ interface ScatterChartProps {
 export const ScatterChart = ({ data, xLabel, yLabel, name }: ScatterChartProps) => {
   return (
     // @ts-ignore
-    <ResponsiveContainer width="100%" height={400}>
-      <RechartScatterChart
-        margin={{
-          top: 20,
-          right: 20,
-          bottom: 20,
-          left: 20,
-        }}
-      >
+      <RechartScatterChart height={500} width={500}>
         <CartesianGrid />
         {/* @ts-ignore */}
         <XAxis type="number" dataKey="x" name={xLabel} unit={xLabel} />
@@ -43,6 +35,5 @@ export const ScatterChart = ({ data, xLabel, yLabel, name }: ScatterChartProps) 
         <Tooltip cursor={{ strokeDasharray: "3 3" }} />
         <Scatter name={name} data={data} fill="#8884d8" />
       </RechartScatterChart>
-    </ResponsiveContainer>
   );
 };
