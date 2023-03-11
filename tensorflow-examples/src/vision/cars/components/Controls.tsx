@@ -6,7 +6,7 @@ interface ControlsProps {
   isTraining: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
   progress: number;
-  totalEpoch: number;
+  epochs: number;
 }
 
 const StyledProgressBar = styled(LinearProgress)`
@@ -17,13 +17,13 @@ const StyledProgressBar = styled(LinearProgress)`
 export const Controls = ({
   isTraining,
   progress,
-  totalEpoch,
+  epochs,
   onClick,
 }: ControlsProps) => {
   return (
     <Grid display={"flex"} justifyItems={"space-between"} alignItems={"center"}>
       <StyledProgressBar value={progress} variant="determinate" />
-      {totalEpoch}
+      {epochs}
       <TrainButton isLoading={isTraining} onClick={onClick} />
     </Grid>
   );

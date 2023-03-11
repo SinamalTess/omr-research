@@ -19,7 +19,7 @@ type TrainingStatus = "waiting" | "training" | "done";
 
 export const Home = () => {
   const [data] = useData();
-  const [totalEpoch] = useState(50);
+  const [epochs] = useState(50);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
   const [predictions, setPredictions] = useState<any[]>([]);
   const [model, setModel] = useState(getModel());
@@ -28,10 +28,18 @@ export const Home = () => {
     useState<TrainingStatus>("waiting");
   const chartData = dataToChartData(data);
 
+  const reset = () => {
+    setProgress(0);
+    setTrainingStatus("training");
+    setModel(getModel());
+    setDataTraining([]);
+    setPredictions([]);
+  }
+
   const handleEpochEnd = (trainingData: TrainingData) => {
     const { epoch } = trainingData;
     setDataTraining((prevState) => [...prevState, trainingData]);
-    setProgress((100 * epoch) / totalEpoch);
+    setProgress((100 * epoch) / epochs);
   };
 
   const handleTrainingEnd = (predictions: any[]) => {
@@ -40,12 +48,12 @@ export const Home = () => {
   };
 
   const handleClick = () => {
-    setProgress(0);
-    setTrainingStatus("training");
-    setModel(getModel());
-    setDataTraining([]);
-    setPredictions([]);
-    startTraining(model, data, totalEpoch, handleEpochEnd, handleTrainingEnd);
+    reset()
+    startTraining(model, data, {
+      epochs,
+      onEpochEnd: handleEpochEnd,
+      onTrainingEnd: handleTrainingEnd,
+    });
   };
 
   const isTraining = trainingStatus === "training";
@@ -64,7 +72,7 @@ export const Home = () => {
             Horsepower vs MPG (miles per gallon)
           </Typography>
           <Controls
-            totalEpoch={totalEpoch}
+              epochs={epochs}
             isTraining={isTraining}
             progress={progress}
             onClick={handleClick}

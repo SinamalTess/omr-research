@@ -5,17 +5,21 @@ import { NormalizedCar } from "../domain";
 import { compileModel } from "./compile";
 import { testModel } from "./test";
 
+interface ModelConfig {
+  inputs: Tensor;
+  labels: Tensor;
+  epochs: number;
+}
+
 const trainModel = async (
   model: tf.LayersModel,
-  inputs: Tensor,
-  labels: Tensor,
-  totalEpoch: number,
+  config: ModelConfig,
   onEpochEnd: Function
 ) => {
+  const { inputs, epochs, labels } = config;
   compileModel(model);
 
   const batchSize = 32;
-  const epochs = totalEpoch;
 
   return await model.fit(inputs, labels, {
     batchSize,
@@ -29,24 +33,38 @@ const trainModel = async (
   });
 };
 
-export const startTraining = (
-  model: tf.LayersModel,
-  data: NormalizedCar[],
-  totalEpoch: number,
-  onEpochEnd: Function,
-  onTrainingEnd: Function
-) => {
-  if (!data.length) return;
+interface TrainingConfig {
+  epochs: number;
+  onEpochEnd: Function;
+  onTrainingEnd: Function;
+}
+
+const getModelParams = (data: NormalizedCar[], config: TrainingConfig) => {
+  const { epochs } = config;
   const tensors = getPreparedData(data);
   const { normalizedInputs, normalizedLabels } = tensors;
 
-  trainModel(
-    model,
-    normalizedInputs,
-    normalizedLabels,
-    totalEpoch,
-    onEpochEnd
-  ).then(() => {
+  return {
+    modelParams: {
+      inputs: normalizedInputs,
+      labels: normalizedLabels,
+      epochs,
+      tensors,
+    },
+  };
+};
+
+export const startTraining = (
+  model: tf.LayersModel,
+  data: NormalizedCar[],
+  config: TrainingConfig
+) => {
+  if (!data.length) return;
+  const { onEpochEnd, onTrainingEnd } = config;
+  const { modelParams } = getModelParams(data, config);
+  const { tensors } = modelParams;
+
+  trainModel(model, modelParams, onEpochEnd).then(() => {
     const predictedPoints = testModel(model, data, tensors);
     onTrainingEnd(predictedPoints);
   });
