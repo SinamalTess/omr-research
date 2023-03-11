@@ -1,8 +1,7 @@
-import { ResponsiveContainer } from "recharts";
 import { ReactElement } from "react";
 
 interface DashboardProps {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 }
 
 export const Dashboard = ({ children }: DashboardProps) => {

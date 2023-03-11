@@ -1,6 +1,4 @@
 import * as tf from "@tensorflow/tfjs";
-import * as tfvis from "@tensorflow/tfjs-vis";
-import { useEffect } from "react";
 
 export function getModel() {
     // Create a sequential model
@@ -13,11 +11,4 @@ export function getModel() {
     model.add(tf.layers.dense({ units: 1, useBias: true }));
 
     return model;
-}
-
-export function useShowModel() {
-    useEffect(() => {
-        const model = getModel();
-        tfvis.show.modelSummary({ name: "Model Summary" }, model);
-    }, []);
 }

@@ -3,7 +3,6 @@ import {
   Scatter,
   ScatterChart as RechartScatterChart,
   Tooltip,
-  ResponsiveContainer,
   XAxis,
   YAxis,
   Legend,

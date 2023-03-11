@@ -1,16 +1,17 @@
 import React from "react";
 import "./App.css";
 import { useData } from "./vision/cars/http/useData";
-import { useShowModel, useTrainModel } from "./vision/cars/model";
+import { getModel, useTrainModel } from "./vision/cars/model";
 import { ScatterChart } from "./vision/cars/components/ScatterChart";
 import { dataToChartData } from "./vision/cars/adapters";
 import { Dashboard } from "./vision/cars/components/Dashboard";
+import { ModelSummary } from "./vision/cars/components/Table";
 
 function App() {
   const [data] = useData();
   const chartData = dataToChartData(data);
+  const model = getModel();
 
-  useShowModel();
   useTrainModel(data);
 
   return (
@@ -22,6 +23,7 @@ function App() {
           xLabel={"hp"}
           name={"Horsepower vs MPG"}
         />
+        <ModelSummary model={model} />
       </Dashboard>
     </div>
   );
