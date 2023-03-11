@@ -1,5 +1,3 @@
-export interface ChartOptions {
-    xLabel: string;
-    yLabel: string;
-    name: string;
+export interface BaseChartOptions {
+    name?: string;
 }

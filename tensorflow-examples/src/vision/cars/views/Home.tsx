@@ -1,17 +1,12 @@
 import { Dashboard } from "../components/Dashboard";
-import { ScatterChart } from "../components/ScatterChart";
-import { LineChart } from "../components/LineChart";
 import { ModelSummary } from "../components/Table";
 import React, { useState } from "react";
 import { useData } from "../http/useData";
 import { dataToChartData } from "../adapters";
 import { getModel, useTrainModel } from "../model";
-
-interface TrainingData {
-  loss: number;
-  mse: number;
-  epoch: number;
-}
+import { DataPreview } from "./DataPreview";
+import { TrainingPreview } from "./TrainingPreview";
+import { TrainingData } from "../../types/TrainingData";
 
 export const Home = () => {
   const [data] = useData();
@@ -20,7 +15,6 @@ export const Home = () => {
   const options = {
     yLabel: "mpg",
     xLabel: "hp",
-    name: "Horsepower vs MPG",
   };
   const model = getModel();
 
@@ -33,9 +27,9 @@ export const Home = () => {
   return (
     <div className="App">
       <Dashboard>
-        <ScatterChart data={chartData} options={options} />
-        <LineChart data={dataTraining} options={options} />
         <ModelSummary model={model} />
+        <DataPreview data={chartData} options={options} />
+        <TrainingPreview data={dataTraining} />
       </Dashboard>
     </div>
   );

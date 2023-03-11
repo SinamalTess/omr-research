@@ -8,16 +8,22 @@ import {
   YAxis,
 } from "recharts";
 import { Coordinates } from "../domain/coordinates.entity";
-import { ChartOptions } from "../../types/ChartOptions";
 import React from "react";
+import { BaseChartOptions } from "../../types/ChartOptions";
+
+export interface ScatterChartOptions extends BaseChartOptions {
+  xLabel: string;
+  yLabel: string;
+}
 
 interface ScatterChartProps {
   data: Coordinates[];
-  options: ChartOptions;
+  options: ScatterChartOptions;
 }
 
 export const ScatterChart = ({ data, options }: ScatterChartProps) => {
   const { name, yLabel, xLabel } = options;
+  const _name = name ?? `${yLabel} vs ${xLabel}`;
   return (
     // @ts-ignore
     <ReScatterChart height={500} width={500}>
@@ -27,8 +33,8 @@ export const ScatterChart = ({ data, options }: ScatterChartProps) => {
       {/* @ts-ignore */}
       <YAxis type="number" dataKey="y" name={yLabel} unit={yLabel} />
       <Legend />
-      <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-      <Scatter name={name} data={data} fill="#8884d8" />
+      <Tooltip />
+      <Scatter name={_name} data={data} fill="#8884d8" />
     </ReScatterChart>
   );
 };
