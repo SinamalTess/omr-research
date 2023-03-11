@@ -1,21 +1,19 @@
 import * as tf from "@tensorflow/tfjs";
 import * as tfvis from "@tensorflow/tfjs-vis";
 import { useEffect } from "react";
-import { convertDataToTensors } from "../adapters";
+import { dataToTensors } from "../adapters";
 import { getModel } from "./create";
 import { Tensor } from "@tensorflow/tfjs";
-import {NormalizedCar} from "../domain";
+import { NormalizedCar } from "../domain";
+import { compileModel } from "./compile";
+import { testModel } from "./test";
 
 async function trainModel(
   model: tf.LayersModel,
   inputs: Tensor,
   labels: Tensor
 ) {
-  model.compile({
-    optimizer: tf.train.adam(),
-    loss: tf.losses.meanSquaredError,
-    metrics: ["mse"],
-  });
+  compileModel(model);
 
   const batchSize = 32;
   const epochs = 50;
@@ -36,10 +34,12 @@ export function useTrainModel(data: NormalizedCar[]) {
   useEffect(() => {
     if (!data.length) return;
     // Convert the data to a form we can use for training.
-    const tensorData = convertDataToTensors(data);
-    const { inputs, labels } = tensorData;
+    const tensors = dataToTensors(data);
+    const { inputs, labels } = tensors;
     const model = getModel();
 
-    trainModel(model, inputs, labels).then(() => console.log("Done Training"));
+    trainModel(model, inputs, labels).then(() =>
+      testModel(model, data, tensors)
+    );
   }, [data]);
 }
