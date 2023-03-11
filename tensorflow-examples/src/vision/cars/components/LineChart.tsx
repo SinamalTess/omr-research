@@ -14,7 +14,6 @@ interface LineChartProps {
 }
 
 export const LineChart = ({ data, options }: LineChartProps) => {
-  console.log(data);
   return (
     <ReLineChart width={500} height={300} data={data}>
       <CartesianGrid stroke="#eee" strokeDasharray="5 5" />

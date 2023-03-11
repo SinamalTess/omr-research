@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { Grid } from "@mui/material";
 
 interface DashboardProps {
   children: ReactElement | ReactElement[];
@@ -6,9 +7,8 @@ interface DashboardProps {
 
 export const Dashboard = ({ children }: DashboardProps) => {
   return (
-    // @ts-ignore
-    <div width="100%" height={'100%'}>
+    <Grid container spacing={2}>
       {children}
-    </div>
+    </Grid>
   );
 };
