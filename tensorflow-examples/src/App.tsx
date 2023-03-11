@@ -11,12 +11,9 @@ function App() {
   });
 
   return (
-    <>
-      {/* @ts-ignore */}
-      <ThemeProvider theme={darkTheme}>
-        <Home />
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={darkTheme}>
+      <Home />
+    </ThemeProvider>
   );
 }
 

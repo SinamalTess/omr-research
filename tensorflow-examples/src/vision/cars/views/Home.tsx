@@ -34,7 +34,7 @@ export const Home = () => {
     setModel(getModel());
     setDataTraining([]);
     setPredictions([]);
-  }
+  };
 
   const handleEpochEnd = (trainingData: TrainingData) => {
     const { epoch } = trainingData;
@@ -48,7 +48,7 @@ export const Home = () => {
   };
 
   const handleClick = () => {
-    reset()
+    reset();
     startTraining(model, data, {
       epochs,
       onEpochEnd: handleEpochEnd,
@@ -72,7 +72,7 @@ export const Home = () => {
             Horsepower vs MPG (miles per gallon)
           </Typography>
           <Controls
-              epochs={epochs}
+            epochs={epochs}
             isTraining={isTraining}
             progress={progress}
             onClick={handleClick}
