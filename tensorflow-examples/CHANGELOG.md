@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](///compare/v1.2.0...v1.3.0) (2023-03-11)
+
+
+### Features
+
+* **vision:** better position of run button a6e19dd
+* **vision:** crete preview components 6a6b8bf
+* **vision:** place elements on dashboard grid 4813840
+* **vision:** show prediction on custom chart 961305d
+* **vision:** turn dark mode on 7a47523
+* **vision:** use Grid inside Dashboard component bc3d431
+
 ## [1.2.0](///compare/v1.1.0...v1.2.0) (2023-03-11)
 
 
