@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { useChart } from "./vision/cars/components/chart";
+import { useShowModel } from "./vision/cars/model";
 
 function App() {
   useChart();
+  useShowModel();
 
   return (
     <div className="App">
