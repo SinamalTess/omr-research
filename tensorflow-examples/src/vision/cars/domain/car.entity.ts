@@ -9,3 +9,8 @@ export interface Car {
   Year: "1970-01-01";
   Origin: "USA";
 }
+
+export type NormalizedCar = Omit<Car, "Miles_per_Gallon" | "Horsepower"> & {
+  mpg: number;
+  horsepower: number;
+};

@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { getData } from "./vision/cars/http";
+import { useChart } from "./vision/cars/components/chart";
 
 function App() {
-  useEffect(() => {
-    getData().then((data) => console.log(data));
-  }, []);
+  useChart();
 
   return (
     <div className="App">

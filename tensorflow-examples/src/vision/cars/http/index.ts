@@ -1,9 +1,4 @@
-import { Car } from "../domain";
-
-export type NormalizedCar = Omit<Car, "Miles_per_Gallon" | "Horsepower"> & {
-  mpg: number;
-  horsepower: number;
-};
+import { Car, NormalizedCar } from "../domain";
 
 export async function getData() {
   const carsDataResponse = await fetch(
