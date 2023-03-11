@@ -11,6 +11,7 @@ import { TrainingData } from "../../types/TrainingData";
 export const Home = () => {
   const [data] = useData();
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
+  const [predictions, setPredictions] = useState<any[]>([]);
   const chartData = dataToChartData(data);
   const options = {
     yLabel: "mpg",
@@ -18,17 +19,21 @@ export const Home = () => {
   };
   const model = getModel();
 
-  const handleTrainingData = (trainingData: TrainingData) => {
+  const handleEpochEnd = (trainingData: TrainingData) => {
     setDataTraining((prevState) => [...prevState, trainingData]);
   };
 
-  useTrainModel(model, data, handleTrainingData);
+  const handleTrainingEnd = (predictions: any[]) => {
+    setPredictions(predictions);
+  };
+
+  useTrainModel(model, data, handleEpochEnd, handleTrainingEnd);
 
   return (
     <div className="App">
       <Dashboard>
         <ModelSummary model={model} />
-        <DataPreview data={chartData} options={options} />
+        <DataPreview data={chartData} options={options} predictions={predictions}/>
         <TrainingPreview data={dataTraining} />
       </Dashboard>
     </div>

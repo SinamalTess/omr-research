@@ -32,7 +32,8 @@ const trainModel = async (
 export const useTrainModel = (
   model: tf.LayersModel,
   data: NormalizedCar[],
-  onEpochEnd: Function
+  onEpochEnd: Function,
+  onTrainingEnd: Function
 ) => {
   useEffect(() => {
     if (!data.length) return;
@@ -40,8 +41,11 @@ export const useTrainModel = (
     const tensors = getPreparedData(data);
     const { normalizedInputs, normalizedLabels } = tensors;
 
-    trainModel(model, normalizedInputs, normalizedLabels, onEpochEnd).then(() =>
-      testModel(model, data, tensors)
+    trainModel(model, normalizedInputs, normalizedLabels, onEpochEnd).then(
+      () => {
+        const predictedPoints = testModel(model, data, tensors);
+        onTrainingEnd(predictedPoints)
+      }
     );
   }, [data]);
 };
