@@ -1,6 +1,6 @@
 import { Car, NormalizedCar } from "../domain";
 
-export async function getData() {
+export async function getData(): Promise<NormalizedCar[]> {
   const carsDataResponse = await fetch(
     "https://storage.googleapis.com/tfjs-tutorials/carsData.json"
   );

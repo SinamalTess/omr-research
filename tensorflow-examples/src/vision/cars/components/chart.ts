@@ -1,11 +1,10 @@
 import { getData } from "../http";
 import * as tfvis from "@tensorflow/tfjs-vis";
 import { NormalizedCar } from "../domain";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-async function plotChart() {
-  const data = await getData();
-  const values = data.map(({ horsepower, mpg }: NormalizedCar) => ({
+async function plotChart(data: NormalizedCar[]) {
+  const values = data.map(({ horsepower, mpg }) => ({
     x: horsepower,
     y: mpg,
   }));
@@ -21,8 +20,22 @@ async function plotChart() {
   );
 }
 
-export function useChart() {
+export function useData(): [
+  NormalizedCar[],
+  Dispatch<SetStateAction<NormalizedCar[]>>
+] {
+  const [data, setData] = useState<NormalizedCar[]>([]);
+
   useEffect(() => {
-    plotChart();
-  }, []);
+    getData().then((response) => setData(response));
+  }, [setData]);
+
+  return [data, setData];
+}
+
+export function useChart(data: NormalizedCar[]) {
+  useEffect(() => {
+    if (!data.length) return;
+    plotChart(data);
+  }, [data]);
 }
