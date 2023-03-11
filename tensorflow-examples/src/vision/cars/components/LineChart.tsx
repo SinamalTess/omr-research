@@ -3,6 +3,7 @@ import {
   Legend,
   Line,
   LineChart as ReLineChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -24,17 +25,17 @@ interface LineChartProps {
 export const LineChart = ({ data, options }: LineChartProps) => {
   const { dataKeys, yLabel, xLabel } = options;
   return (
-    <ReLineChart width={500} height={300} data={data}>
-      <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-      {/* @ts-ignore */}
-      <XAxis dataKey={xLabel} />
-      {/* @ts-ignore */}
-      <YAxis dataKey={yLabel} />
-      <Legend />
-      <Tooltip />
-      {dataKeys.map((dataKey) => (
-        <Line type="monotone" dataKey={dataKey} stroke="#8884d8" />
-      ))}
-    </ReLineChart>
+    <ResponsiveContainer width="100%" height={300}>
+      <ReLineChart data={data}>
+        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+        <XAxis dataKey={xLabel} />
+        <YAxis dataKey={yLabel} />
+        <Legend />
+        <Tooltip />
+        {dataKeys.map((dataKey) => (
+          <Line type="monotone" dataKey={dataKey} stroke="#8884d8" />
+        ))}
+      </ReLineChart>
+    </ResponsiveContainer>
   );
 };

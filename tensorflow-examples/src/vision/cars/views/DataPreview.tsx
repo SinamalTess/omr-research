@@ -12,7 +12,6 @@ import {
   YAxis,
 } from "recharts";
 import { ChartCoordinate } from "recharts/types/util/types";
-import { Typography } from "@mui/material";
 
 interface DataPreviewProps {
   data: ChartCoordinate[];
@@ -32,9 +31,7 @@ export const DataPreview = ({
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart>
           <CartesianGrid />
-          {/* @ts-ignore */}
           <XAxis type="number" dataKey="x" name={xLabel} unit={xLabel} />
-          {/* @ts-ignore */}
           <YAxis type="number" dataKey="y" name={yLabel} unit={yLabel} />
           <Legend />
           <Tooltip />
