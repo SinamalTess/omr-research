@@ -9,8 +9,6 @@ import { TrainingPreview } from "./TrainingPreview";
 import { TrainingData } from "../../types/TrainingData";
 import { Button, Grid, Typography } from "@mui/material";
 
-const model = getModel();
-
 const options = {
   yLabel: "mpg",
   xLabel: "hp",
@@ -20,6 +18,7 @@ export const Home = () => {
   const [data] = useData();
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
   const [predictions, setPredictions] = useState<any[]>([]);
+  const [model, setModel] = useState(getModel());
   const chartData = dataToChartData(data);
 
   const handleEpochEnd = (trainingData: TrainingData) => {
@@ -31,6 +30,7 @@ export const Home = () => {
   };
 
   const handleClick = () => {
+    setModel(getModel())
     setDataTraining([]);
     setPredictions([]);
     startTraining(model, data, handleEpochEnd, handleTrainingEnd);
@@ -43,7 +43,7 @@ export const Home = () => {
           <Typography variant="h2" component="h2">
             Horsepower vs MPG (miles per gallon)
           </Typography>
-          <Button onClick={handleClick}>Run model</Button>
+          <Button onClick={handleClick}>Train model</Button>
         </Grid>
         <Grid item xs={8}>
           <DataPreview

@@ -1,10 +1,10 @@
 import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart as ReLineChart,
-  XAxis,
-  YAxis,
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart as ReLineChart, Tooltip,
+    XAxis,
+    YAxis,
 } from "recharts";
 import { BaseChartOptions } from "../../types/ChartOptions";
 import React from "react";
@@ -30,6 +30,7 @@ export const LineChart = ({ data, options }: LineChartProps) => {
       {/* @ts-ignore */}
       <YAxis dataKey={yLabel} />
       <Legend />
+      <Tooltip />
       {dataKeys.map((dataKey) => (
         <Line type="monotone" dataKey={dataKey} stroke="#8884d8" />
       ))}
