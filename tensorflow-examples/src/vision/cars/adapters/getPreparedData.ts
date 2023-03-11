@@ -3,7 +3,7 @@ import { NormalizedCar } from "../domain";
 import { normalizeData } from "./normalizeData";
 import { dataToTensors } from "./dataToTensors";
 
-export function getPreparedData(data: NormalizedCar[]) {
+export const getPreparedData = (data: NormalizedCar[]) => {
   // Wrapping these calculations in a tidy will dispose any
   // intermediate tensors.
 

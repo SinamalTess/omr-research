@@ -1,6 +1,6 @@
 import { Car, NormalizedCar } from "../domain";
 
-export async function getData(): Promise<NormalizedCar[]> {
+export const getData = async (): Promise<NormalizedCar[]> => {
   const carsDataResponse = await fetch(
     "https://storage.googleapis.com/tfjs-tutorials/carsData.json"
   );
@@ -13,4 +13,4 @@ export async function getData(): Promise<NormalizedCar[]> {
     .filter((car: NormalizedCar) => car.mpg != null && car.horsepower != null);
 
   return filteredData;
-}
+};

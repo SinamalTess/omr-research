@@ -2,10 +2,10 @@ import { getData } from "./index";
 import { NormalizedCar } from "../domain";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export function useData(): [
+export const useData = (): [
   NormalizedCar[],
   Dispatch<SetStateAction<NormalizedCar[]>>
-] {
+] => {
   const [data, setData] = useState<NormalizedCar[]>([]);
 
   useEffect(() => {
@@ -13,4 +13,4 @@ export function useData(): [
   }, [setData]);
 
   return [data, setData];
-}
+};

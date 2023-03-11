@@ -9,11 +9,11 @@ interface NormalizationData {
   labelMax: tf.Tensor<tf.Rank>;
 }
 
-export function testModel(
+export const testModel = (
   model: tf.LayersModel,
   inputData: any,
   normalizationData: NormalizationData
-) {
+) => {
   const { inputMax, inputMin, labelMin, labelMax } = normalizationData;
 
   // Generate predictions for a uniform range of numbers between 0 and 1;
@@ -53,4 +53,4 @@ export function testModel(
       height: 300,
     }
   );
-}
+};

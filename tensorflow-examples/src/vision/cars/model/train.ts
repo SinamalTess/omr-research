@@ -6,12 +6,12 @@ import { NormalizedCar } from "../domain";
 import { compileModel } from "./compile";
 import { testModel } from "./test";
 
-async function trainModel(
+const trainModel = async (
   model: tf.LayersModel,
   inputs: Tensor,
   labels: Tensor,
   onEpochEnd: Function
-) {
+) => {
   compileModel(model);
 
   const batchSize = 32;
@@ -27,13 +27,13 @@ async function trainModel(
       },
     },
   });
-}
+};
 
-export function useTrainModel(
+export const useTrainModel = (
   model: tf.LayersModel,
   data: NormalizedCar[],
   onEpochEnd: Function
-) {
+) => {
   useEffect(() => {
     if (!data.length) return;
     // Convert the data to a form we can use for training.
@@ -44,4 +44,4 @@ export function useTrainModel(
       testModel(model, data, tensors)
     );
   }, [data]);
-}
+};

@@ -1,6 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
 
-export function getModel() {
+export const getModel = () => {
     // Create a sequential model
     const model = tf.sequential();
 
