@@ -33,7 +33,7 @@ export const LineChart = ({ data, options }: LineChartProps) => {
         <Legend />
         <Tooltip />
         {dataKeys.map((dataKey) => (
-          <Line type="monotone" dataKey={dataKey} stroke="#8884d8" />
+          <Line type="monotone" dataKey={dataKey} stroke="#8884d8" dot={false} />
         ))}
       </ReLineChart>
     </ResponsiveContainer>

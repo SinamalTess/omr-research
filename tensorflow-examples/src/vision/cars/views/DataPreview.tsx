@@ -43,6 +43,7 @@ export const DataPreview = ({
               data={predictions}
               dataKey={"y"}
               strokeWidth={3}
+              dot={false}
             />
           ) : null}
         </ComposedChart>
