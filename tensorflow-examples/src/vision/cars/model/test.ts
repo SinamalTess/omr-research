@@ -38,8 +38,7 @@ const getPredictions = (
 
 export const testModel = (
   model: tf.LayersModel,
-  inputData: any,
-  normalizationData: NormalizationData
+  normalizationData: NormalizationData,
 ) => {
   return getPredictions(model, normalizationData);
 };

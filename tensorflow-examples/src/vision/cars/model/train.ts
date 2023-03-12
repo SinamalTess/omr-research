@@ -5,6 +5,43 @@ import { NormalizedCar } from "../domain";
 import { compileModel } from "./compile";
 import { testModel } from "./test";
 
+interface TrainingConfig {
+  epochs: number;
+  onEpochEnd: Function;
+  onTrainingEnd: Function;
+}
+
+export const startTraining = (
+    model: tf.LayersModel,
+    data: NormalizedCar[],
+    config: TrainingConfig
+) => {
+  if (!data.length) return;
+  const { onEpochEnd, onTrainingEnd } = config;
+  const { modelParams } = getModelParams(data, config);
+  const { tensors } = modelParams;
+
+  trainModel(model, modelParams, onEpochEnd).then(() => {
+    const predictedPoints = testModel(model, tensors);
+    onTrainingEnd(predictedPoints);
+  });
+};
+
+const getModelParams = (data: NormalizedCar[], config: TrainingConfig) => {
+  const { epochs } = config;
+  const tensors = getPreparedData(data);
+  const { normalizedInputs, normalizedLabels } = tensors;
+
+  return {
+    modelParams: {
+      inputs: normalizedInputs,
+      labels: normalizedLabels,
+      epochs,
+      tensors,
+    },
+  };
+};
+
 interface ModelConfig {
   inputs: Tensor;
   labels: Tensor;
@@ -30,42 +67,5 @@ const trainModel = async (
         onEpochEnd({ epoch: epoch + 1, loss: logs?.loss ?? 0, mse: logs?.mse ?? 0 });
       },
     },
-  });
-};
-
-interface TrainingConfig {
-  epochs: number;
-  onEpochEnd: Function;
-  onTrainingEnd: Function;
-}
-
-const getModelParams = (data: NormalizedCar[], config: TrainingConfig) => {
-  const { epochs } = config;
-  const tensors = getPreparedData(data);
-  const { normalizedInputs, normalizedLabels } = tensors;
-
-  return {
-    modelParams: {
-      inputs: normalizedInputs,
-      labels: normalizedLabels,
-      epochs,
-      tensors,
-    },
-  };
-};
-
-export const startTraining = (
-  model: tf.LayersModel,
-  data: NormalizedCar[],
-  config: TrainingConfig
-) => {
-  if (!data.length) return;
-  const { onEpochEnd, onTrainingEnd } = config;
-  const { modelParams } = getModelParams(data, config);
-  const { tensors } = modelParams;
-
-  trainModel(model, modelParams, onEpochEnd).then(() => {
-    const predictedPoints = testModel(model, data, tensors);
-    onTrainingEnd(predictedPoints);
   });
 };

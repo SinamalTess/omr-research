@@ -3,8 +3,6 @@ import {
   ScatterChart as ReScatterChart,
   Tooltip,
   Legend,
-  XAxis,
-  YAxis,
 } from "recharts";
 import { Coordinates } from "../../domain";
 import React from "react";
