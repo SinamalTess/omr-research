@@ -1,7 +1,7 @@
 import React from "react";
 import { CodeBlock, dracula } from "react-code-blocks";
 import { Chip, Grid, styled, TextField } from "@mui/material";
-import { Tensors } from "../../model";
+import { Tensors } from "../../../model";
 
 interface DatashapeProps {
   originalData: any[];

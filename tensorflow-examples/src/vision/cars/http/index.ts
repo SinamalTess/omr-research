@@ -1,2 +1,2 @@
 export * from './fetchData'
-export * from './useData'
+export * from '../UI/hooks/useData'

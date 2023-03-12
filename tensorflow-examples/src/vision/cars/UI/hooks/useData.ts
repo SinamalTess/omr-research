@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { fetchData } from "./fetchData";
+import { fetchData } from "../../http/fetchData";
 
 export const useData = <T>(
   url: string,
