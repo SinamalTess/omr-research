@@ -1,2 +1,3 @@
-export * from "./getPreparedData";
 export * from "./dataToCoordinates";
+export * from "./filterCarsData";
+export * from "./getPreparedData";
