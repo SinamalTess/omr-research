@@ -6,7 +6,7 @@ import { Tensors } from "../../../model";
 interface DatashapeProps {
   originalData: unknown[];
   filteredData: unknown[];
-  tensors?: Tensors;
+  tensors?: Tensors | null;
   url: string;
 }
 
@@ -37,8 +37,6 @@ export const Datashape = ({
   const maxEntries = 2;
   const originalJSON = codify(originalData.slice(0, maxEntries));
   const filteredJSON = codify(filteredData.slice(0, maxEntries));
-  const nbOriginalEntries = originalData.length;
-  const nbFilteredEntries = filteredData.length;
   const tensorsInputs = tensors ? tensors.normalizedInputs.dataSync() : [];
   const tensorsInputsJSON = tensors
     ? codify(tensorsInputs.slice(0, maxEntries))
@@ -48,6 +46,8 @@ export const Datashape = ({
     ? codify(tensorsLabels.slice(0, maxEntries))
     : "";
 
+  console.log(tensors);
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -55,26 +55,30 @@ export const Datashape = ({
       </Grid>
       <Grid item xs={4}>
         <StyledDiv>
-          <Chip label={`${nbOriginalEntries} original entries`} />
+          <Chip label={`${originalData.length} original entries`} />
           <BaseCodeBlock code={originalJSON} />
         </StyledDiv>
       </Grid>
       <Grid item xs={4}>
         <StyledDiv>
-          <Chip label={`${nbFilteredEntries} filtered entries`} />
+          <Chip label={`${filteredData.length} filtered entries`} />
           <BaseCodeBlock code={filteredJSON} />
         </StyledDiv>
       </Grid>
-      <Grid item xs={4}>
-        <StyledDiv>
-          <Chip label={`${nbOriginalEntries} tensor inputs`} />
-          <BaseCodeBlock code={tensorsInputsJSON} />
-        </StyledDiv>
-        <StyledDiv>
-          <Chip label={`${nbOriginalEntries} tensor labels`} />
-          <BaseCodeBlock code={tensorsLabelsJSON} />
-        </StyledDiv>
-      </Grid>
+      {tensors ? (
+        <>
+          <Grid item xs={4}>
+            <StyledDiv>
+              <Chip label={`${tensorsInputs.length} tensor inputs`} />
+              <BaseCodeBlock code={tensorsInputsJSON} />
+            </StyledDiv>
+            <StyledDiv>
+              <Chip label={`${tensorsLabels.length} tensor labels`} />
+              <BaseCodeBlock code={tensorsLabelsJSON} />
+            </StyledDiv>
+          </Grid>
+        </>
+      ) : null}
     </Grid>
   );
 };

@@ -16,7 +16,7 @@ export interface Tensors extends NormalizationData {
   normalizedLabels: tf.Tensor<tf.Rank>,
 }
 
-interface ModelParams extends ModelConfig {
+export interface ModelParams extends ModelConfig {
   tensors: Tensors;
 }
 

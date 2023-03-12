@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Home } from "./vision/cars/UI/views/Home";
 import { Box, Tab, Typography } from "@mui/material";
@@ -7,7 +7,13 @@ import { Controls, Navbar } from "./vision/cars/UI/components";
 import { useData } from "./vision/cars/UI/hooks";
 import { TrainingData } from "./vision/types";
 import { Car, Coordinates } from "./vision/cars/domain";
-import {getModel, getModelParams, startTraining, Tensors} from "./vision/cars/model";
+import {
+  getModel,
+  getModelParams,
+  ModelParams,
+  startTraining,
+  Tensors,
+} from "./vision/cars/model";
 import { dataToCoordinates } from "./vision/cars/adapters";
 import { Datashape } from "./vision/cars/UI/views/Datashape";
 import { filterCarsData } from "./vision/cars/adapters";
@@ -30,11 +36,12 @@ function App() {
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
   const [predictions, setPredictions] = useState<Coordinates[]>([]);
   const [model, setModel] = useState(getModel());
-  const [tensors, setTensors] = useState<Tensors>();
+  const [modelParams, setModelParams] = useState<ModelParams>();
+  const tensors = modelParams ? modelParams.tensors : null;
   const [activeTab, setActiveTab] = useState("1");
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
-  const chartData = dataToCoordinates(data, 'horsepower', 'mpg');
+  const chartData = dataToCoordinates(data, "horsepower", "mpg");
 
   const reset = () => {
     setCurrentEpoch(0);
@@ -54,17 +61,23 @@ function App() {
     setTrainingStatus("done");
   };
 
+  useEffect(() => {
+    if (data.length) {
+      const { modelParams } = getModelParams(data, epochs);
+      setModelParams(modelParams);
+    }
+  }, [originalData]);
+
   const train = () => {
-    reset();
-    const { modelParams } = getModelParams(data, epochs);
-    const { tensors } = modelParams;
-    setTensors(tensors)
-    setTrainingStatus("training");
-    startTraining(model, data, {
-      modelParams,
-      onEpochEnd: handleEpochEnd,
-      onTrainingEnd: handleTrainingEnd,
-    });
+    if (modelParams) {
+      reset();
+      setTrainingStatus("training");
+      startTraining(model, data, {
+        modelParams,
+        onEpochEnd: handleEpochEnd,
+        onTrainingEnd: handleTrainingEnd,
+      });
+    }
   };
 
   const handleEpochsChanged = (newEpochsValue: number) => {
