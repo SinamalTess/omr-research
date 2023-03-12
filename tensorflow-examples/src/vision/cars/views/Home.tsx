@@ -49,7 +49,7 @@ export const Home = ({ className }: HomeProps) => {
     setTrainingStatus("done");
   };
 
-  const handleClick = () => {
+  const train = () => {
     reset();
     setTrainingStatus("training");
     startTraining(model, data, {
@@ -57,7 +57,7 @@ export const Home = ({ className }: HomeProps) => {
       onEpochEnd: handleEpochEnd,
       onTrainingEnd: handleTrainingEnd,
     });
-  };
+  }
 
   const handleEpochsChanged = (newEpochsValue: number) => {
     reset();
@@ -82,8 +82,9 @@ export const Home = ({ className }: HomeProps) => {
           epochs={epochs}
           currentEpoch={currentEpoch}
           isTraining={isTraining}
-          onClick={handleClick}
+          onClick={train}
           onChangeEpochs={handleEpochsChanged}
+          onEnterKeyDown={train}
         />
       </Grid>
       <Grid container item xs={8}>

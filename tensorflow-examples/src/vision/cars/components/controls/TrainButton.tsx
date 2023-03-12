@@ -1,10 +1,10 @@
 import LoadingButton from "@mui/lab/LoadingButton";
 import PlayArrow from "@mui/icons-material/PlayArrow";
-import React, { MouseEventHandler } from "react";
+import React from "react";
 
 interface TrainButtonProps {
   isLoading: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick: () => void;
 }
 
 export const TrainButton = ({ isLoading, onClick }: TrainButtonProps) => {

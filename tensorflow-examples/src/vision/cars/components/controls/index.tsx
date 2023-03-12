@@ -6,10 +6,11 @@ import { ProgressBar } from "./ProgressBar";
 
 interface ControlsProps {
   isTraining: boolean;
-  onClick: MouseEventHandler<HTMLButtonElement>;
-  onChangeEpochs: (epochs: number) => void;
   currentEpoch: number;
   epochs: number;
+  onClick: () => void;
+  onChangeEpochs: (epochs: number) => void;
+  onEnterKeyDown: () => void;
 }
 
 export const Controls = ({
@@ -18,6 +19,7 @@ export const Controls = ({
   epochs,
   onClick,
   onChangeEpochs,
+  onEnterKeyDown,
 }: ControlsProps) => {
   return (
     <Grid display={"flex"} justifyItems={"space-between"} alignItems={"center"}>
@@ -26,6 +28,7 @@ export const Controls = ({
         epochs={epochs}
         currentEpoch={currentEpoch}
         onChange={onChangeEpochs}
+        onEnterKeyDown={onEnterKeyDown}
       />
       <TrainButton isLoading={isTraining} onClick={onClick} />
     </Grid>
