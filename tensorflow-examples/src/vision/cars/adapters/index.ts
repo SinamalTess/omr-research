@@ -1,2 +1,2 @@
 export * from "./getPreparedData";
-export * from "./dataToChartData";
+export * from "./dataToCoordinates";

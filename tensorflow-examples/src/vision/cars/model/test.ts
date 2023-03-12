@@ -1,4 +1,5 @@
 import * as tf from "@tensorflow/tfjs";
+import { Coordinates } from "../domain";
 
 interface NormalizationData {
   inputMax: tf.Tensor<tf.Rank>;
@@ -13,7 +14,7 @@ interface NormalizationData {
 const getPredictions = (
   model: tf.LayersModel,
   normalizationData: NormalizationData
-) => {
+): Coordinates[] => {
   const { inputMax, inputMin, labelMin, labelMax } = normalizationData;
 
   const [xs, preds] = tf.tidy(() => {
@@ -38,7 +39,7 @@ const getPredictions = (
 
 export const testModel = (
   model: tf.LayersModel,
-  normalizationData: NormalizationData,
+  normalizationData: NormalizationData
 ) => {
   return getPredictions(model, normalizationData);
 };

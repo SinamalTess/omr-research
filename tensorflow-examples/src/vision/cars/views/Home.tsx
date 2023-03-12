@@ -1,12 +1,13 @@
 import { Dashboard, ModelSummary, Controls } from "../components";
 import React, { useState } from "react";
 import { useData } from "../http";
-import { dataToChartData } from "../adapters";
+import { dataToCoordinates } from "../adapters";
 import { getModel, startTraining } from "../model";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
 import { TrainingData } from "../../types";
 import { Grid, Typography } from "@mui/material";
+import { Coordinates } from "../domain";
 
 const options = {
   yLabel: "mpg",
@@ -24,11 +25,11 @@ export const Home = ({ className }: HomeProps) => {
   const [epochs, setEpochs] = useState(50);
   const [currentEpoch, setCurrentEpoch] = useState(0);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
-  const [predictions, setPredictions] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<Coordinates[]>([]);
   const [model, setModel] = useState(getModel());
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
-  const chartData = dataToChartData(data);
+  const chartData = dataToCoordinates(data);
 
   const reset = () => {
     setCurrentEpoch(0);
@@ -43,7 +44,7 @@ export const Home = ({ className }: HomeProps) => {
     setCurrentEpoch(epoch);
   };
 
-  const handleTrainingEnd = (predictions: any[]) => {
+  const handleTrainingEnd = (predictions: Coordinates[]) => {
     setPredictions(predictions);
     setTrainingStatus("done");
   };
