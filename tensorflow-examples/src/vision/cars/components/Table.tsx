@@ -15,7 +15,7 @@ interface ModelSummaryProps {
 export const ModelSummary = ({ model }: ModelSummaryProps) => {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Layer type</TableCell>
