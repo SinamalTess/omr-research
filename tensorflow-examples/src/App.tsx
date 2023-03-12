@@ -8,7 +8,7 @@ import { Controls } from "./vision/cars/components";
 import { useData } from "./vision/cars/http";
 import { TrainingData } from "./vision/types";
 import { Car, Coordinates } from "./vision/cars/domain";
-import { getModel, startTraining } from "./vision/cars/model";
+import {getModel, getModelParams, startTraining, Tensors} from "./vision/cars/model";
 import { dataToCoordinates } from "./vision/cars/adapters";
 import { Datashape } from "./vision/cars/views/Datashape";
 import { filterCarsData } from "./vision/cars/adapters/filterCarsData";
@@ -31,6 +31,7 @@ function App() {
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
   const [predictions, setPredictions] = useState<Coordinates[]>([]);
   const [model, setModel] = useState(getModel());
+  const [tensors, setTensors] = useState<Tensors>();
   const [activeTab, setActiveTab] = useState("1");
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
@@ -56,9 +57,12 @@ function App() {
 
   const train = () => {
     reset();
+    const { modelParams } = getModelParams(data, epochs);
+    const { tensors } = modelParams;
+    setTensors(tensors)
     setTrainingStatus("training");
     startTraining(model, data, {
-      epochs,
+      modelParams,
       onEpochEnd: handleEpochEnd,
       onTrainingEnd: handleTrainingEnd,
     });
@@ -110,6 +114,7 @@ function App() {
             url={URL}
             originalData={originalData}
             filteredData={data}
+            tensors={tensors}
           />
         </TabPanel>
       </TabContext>

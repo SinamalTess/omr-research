@@ -1,7 +1,7 @@
 import * as tf from "@tensorflow/tfjs";
 import { Coordinates } from "../domain";
 
-interface NormalizationData {
+export interface NormalizationData {
   inputMax: tf.Tensor<tf.Rank>;
   inputMin: tf.Tensor<tf.Rank>;
   labelMin: tf.Tensor<tf.Rank>;
