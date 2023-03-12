@@ -1,13 +1,11 @@
-import { ModelSummary } from "../components";
+import { ModelSummary } from "../../components";
 import React from "react";
-import { DataPreview } from "./DataPreview";
-import { TrainingPreview } from "./TrainingPreview";
-import { MainPreview } from "../components/Dashboard/MainPreview";
-import { Sidebar } from "../components/Dashboard/Sidebar";
-import { Dashboard } from "../components";
-import { Coordinates } from "../domain";
-import { TrainingData } from "../../types";
+import { MainPreview, Sidebar, Dashboard } from "../../components";
+import { Coordinates } from "../../domain";
+import { TrainingData } from "../../../types";
 import * as tf from "@tensorflow/tfjs";
+import {DataPreview} from "./DataPreview";
+import {TrainingPreview} from "./TrainingPreview";
 
 interface HomeProps {
   className?: string;

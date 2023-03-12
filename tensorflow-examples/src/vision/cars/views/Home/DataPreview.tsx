@@ -1,4 +1,4 @@
-import { ScatterChartOptions, Grid } from "../components";
+import { ScatterChartOptions, Grid } from "../../components";
 import React from "react";
 import {
   ComposedChart,
@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "recharts";
 import { ChartCoordinate } from "recharts/types/util/types";
-import { Axes } from "../components/visualizations/Axes";
+import { Axes } from "../../components/visualizations/Axes";
 
 interface DataPreviewProps {
   data: ChartCoordinate[];

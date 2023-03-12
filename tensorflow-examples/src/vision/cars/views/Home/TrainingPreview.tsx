@@ -1,6 +1,6 @@
 import React from "react";
-import { LineChart } from "../components";
-import { TrainingData } from "../../types";
+import { LineChart } from "../../components";
+import { TrainingData } from "../../../types";
 
 interface TrainingPreviewProps {
   data: TrainingData[];

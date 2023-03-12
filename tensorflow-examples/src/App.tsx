@@ -3,17 +3,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Home } from "./vision/cars/views/Home";
 import { Box, styled, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Navbar } from "./vision/cars/components/Dashboard/Navbar";
+import { Navbar } from "./vision/cars/components/Navbar";
 import { Controls } from "./vision/cars/components";
 import { useData } from "./vision/cars/http";
 import { TrainingData } from "./vision/types";
 import { Coordinates } from "./vision/cars/domain";
 import { getModel, startTraining } from "./vision/cars/model";
 import { dataToCoordinates } from "./vision/cars/adapters";
-
-const StyledHome = styled(Home)`
-  padding: ${({ theme }) => theme.spacing(2)};
-`;
+import { Datashape } from "./vision/cars/views/Datashape/Datashape";
 
 type TrainingStatus = "waiting" | "training" | "done";
 
@@ -97,14 +94,16 @@ function App() {
           </TabList>
         </Box>
         <TabPanel value="1">
-          <StyledHome
+          <Home
             model={model}
             predictions={predictions}
             dataPreview={chartData}
             dataTraining={dataTraining}
           />
         </TabPanel>
-        <TabPanel value="1"><Typography>test</Typography></TabPanel>
+        <TabPanel value="2">
+          <Datashape />
+        </TabPanel>
       </TabContext>
     </ThemeProvider>
   );
