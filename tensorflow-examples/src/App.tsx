@@ -4,7 +4,7 @@ import { Home } from "./vision/cars/UI/views/Home";
 import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Controls, Navbar } from "./vision/cars/UI/components";
-import { useData } from "./vision/cars/http";
+import { useData } from "./vision/cars/UI/hooks";
 import { TrainingData } from "./vision/types";
 import { Car, Coordinates } from "./vision/cars/domain";
 import {getModel, getModelParams, startTraining, Tensors} from "./vision/cars/model";

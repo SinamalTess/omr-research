@@ -10,11 +10,12 @@ import {
 } from "recharts";
 import { ChartCoordinate } from "recharts/types/util/types";
 import { Axes } from "../../components/Visualizations/Axes";
+import { Coordinates } from "../../../domain";
 
 interface DataPreviewProps {
   data: ChartCoordinate[];
   options: ScatterChartOptions;
-  predictions: any[];
+  predictions: Coordinates[];
 }
 
 export const DataPreview = ({
