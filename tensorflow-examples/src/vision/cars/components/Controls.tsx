@@ -1,11 +1,19 @@
 import { TrainButton } from "./TrainButton";
-import { Grid, LinearProgress, styled, Typography } from "@mui/material";
-import React, { MouseEventHandler } from "react";
+import {
+  Grid,
+  InputAdornment,
+  LinearProgress,
+  styled,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { ChangeEvent, KeyboardEvent, MouseEventHandler } from "react";
 
 interface ControlsProps {
   isTraining: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
-  progress: number;
+  onChangeEpochs: (epochs: number) => void;
+  currentEpoch: number;
   epochs: number;
 }
 
@@ -16,14 +24,40 @@ const StyledProgressBar = styled(LinearProgress)`
 
 export const Controls = ({
   isTraining,
-  progress,
+  currentEpoch,
   epochs,
   onClick,
+  onChangeEpochs,
 }: ControlsProps) => {
+  const progress = (100 * currentEpoch) / epochs;
+
+  const handleEpochsChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const regex = /^[0-9\b]+$/;
+    const { value } = event.target;
+    const isNumber = regex.test(value);
+    const maxValue = 150
+
+    if ((value === "" || isNumber) && +value <= maxValue) {
+      onChangeEpochs(+value);
+    }
+  };
   return (
     <Grid display={"flex"} justifyItems={"space-between"} alignItems={"center"}>
       <StyledProgressBar value={progress} variant="determinate" />
-      <Typography color={"textSecondary"}>{epochs}</Typography>
+      <Typography color={"textSecondary"}>
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                {`${currentEpoch} / `}
+              </InputAdornment>
+            ),
+          }}
+          value={epochs}
+          size="small"
+          onChange={handleEpochsChange}
+        />
+      </Typography>
       <TrainButton isLoading={isTraining} onClick={onClick} />
     </Grid>
   );

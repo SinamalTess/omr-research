@@ -23,18 +23,17 @@ interface HomeProps {
 
 export const Home = ({className}: HomeProps) => {
   const [data] = useData();
-  const [epochs] = useState(50);
+  const [epochs, setEpochs] = useState(50);
+  const [currentEpoch, setCurrentEpoch] = useState(0);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
   const [predictions, setPredictions] = useState<any[]>([]);
   const [model, setModel] = useState(getModel());
-  const [progress, setProgress] = useState(0);
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
   const chartData = dataToChartData(data);
 
   const reset = () => {
-    setProgress(0);
-    setTrainingStatus("training");
+    setCurrentEpoch(0);
     setModel(getModel());
     setDataTraining([]);
     setPredictions([]);
@@ -43,7 +42,7 @@ export const Home = ({className}: HomeProps) => {
   const handleEpochEnd = (trainingData: TrainingData) => {
     const { epoch } = trainingData;
     setDataTraining((prevState) => [...prevState, trainingData]);
-    setProgress((100 * epoch) / epochs);
+    setCurrentEpoch(epoch);
   };
 
   const handleTrainingEnd = (predictions: any[]) => {
@@ -53,12 +52,18 @@ export const Home = ({className}: HomeProps) => {
 
   const handleClick = () => {
     reset();
+    setTrainingStatus("training");
     startTraining(model, data, {
       epochs,
       onEpochEnd: handleEpochEnd,
       onTrainingEnd: handleTrainingEnd,
     });
   };
+
+  const handleEpochsChanged = (newEpochsValue: number) => {
+    reset();
+    setEpochs(newEpochsValue)
+  }
 
   const isTraining = trainingStatus === "training";
 
@@ -76,9 +81,10 @@ export const Home = ({className}: HomeProps) => {
         </Typography>
         <Controls
           epochs={epochs}
+          currentEpoch={currentEpoch}
           isTraining={isTraining}
-          progress={progress}
           onClick={handleClick}
+          onChangeEpochs={handleEpochsChanged}
         />
       </Grid>
       <Grid container item xs={8}>

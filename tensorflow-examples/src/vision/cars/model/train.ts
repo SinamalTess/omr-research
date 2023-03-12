@@ -27,7 +27,7 @@ const trainModel = async (
     shuffle: true,
     callbacks: {
       onEpochEnd: (epoch, logs) => {
-        onEpochEnd({ epoch, loss: logs?.loss ?? 0, mse: logs?.mse ?? 0 });
+        onEpochEnd({ epoch: epoch + 1, loss: logs?.loss ?? 0, mse: logs?.mse ?? 0 });
       },
     },
   });
