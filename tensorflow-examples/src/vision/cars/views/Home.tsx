@@ -1,6 +1,6 @@
 import { Dashboard, ModelSummary, Controls } from "../components";
 import React, { useState } from "react";
-import { useData } from "../http/useData";
+import { useData } from "../http";
 import { dataToChartData } from "../adapters";
 import { getModel, startTraining } from "../model";
 import { DataPreview } from "./DataPreview";

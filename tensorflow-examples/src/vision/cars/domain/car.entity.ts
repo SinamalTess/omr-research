@@ -10,7 +10,7 @@ export interface Car {
   Origin: string;
 }
 
-export type NormalizedCar = Omit<Car, "Miles_per_Gallon" | "Horsepower"> & {
+export type NormalizedCar = {
   mpg: number;
   horsepower: number;
 };

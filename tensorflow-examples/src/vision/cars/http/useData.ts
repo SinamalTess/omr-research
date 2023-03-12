@@ -1,6 +1,6 @@
-import { getData } from "./index";
 import { NormalizedCar } from "../domain";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { getCarsData } from "../data/cars.service";
 
 export const useData = (): [
   NormalizedCar[],
@@ -9,7 +9,7 @@ export const useData = (): [
   const [data, setData] = useState<NormalizedCar[]>([]);
 
   useEffect(() => {
-    getData().then((response) => setData(response));
+    getCarsData().then((response) => setData(response));
   }, [setData]);
 
   return [data, setData];

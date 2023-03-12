@@ -58,7 +58,7 @@ export const ModelSummary = ({ model }: ModelSummaryProps) => {
     "Neurons",
   ];
 
-  const layers = model.layers.map((layer, i) => {
+  const rows = model.layers.map((layer, i) => {
     const { name } = layer;
     const row = getRow(layer, i, model);
     const rowWithCellKeys = row.map((cell, i) => ({
@@ -77,7 +77,7 @@ export const ModelSummary = ({ model }: ModelSummaryProps) => {
       <Typography variant={"h6"} color={"primary"}>
         {getTypeIcon(type)} {type} model
       </Typography>
-      <StyledTable headings={headings} rows={layers} />
+      <StyledTable headings={headings} rows={rows} />
     </>
   );
 };
