@@ -4,8 +4,8 @@ import { Chip, Grid, styled, TextField } from "@mui/material";
 import { Tensors } from "../../../model";
 
 interface DatashapeProps {
-  originalData: any[];
-  filteredData: any[];
+  originalData: unknown[];
+  filteredData: unknown[];
   tensors?: Tensors;
   url: string;
 }
@@ -26,7 +26,7 @@ const BaseCodeBlock = ({ code }: { code: string }) => (
   />
 );
 
-const codify = (input: any) => JSON.stringify(input, null, 2);
+const codify = (input: unknown) => JSON.stringify(input, null, 2);
 
 export const Datashape = ({
   originalData,

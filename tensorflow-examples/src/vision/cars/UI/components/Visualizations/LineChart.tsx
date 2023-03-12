@@ -17,7 +17,7 @@ export interface LineChartOptions extends BaseChartOptions {
 }
 
 interface LineChartProps {
-  data: any[];
+  data: unknown[];
   options: LineChartOptions;
 }
 
