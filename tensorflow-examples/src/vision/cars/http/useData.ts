@@ -1,12 +1,14 @@
-import { Car } from "../domain";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { getCarsData } from "../data/cars.service";
+import { fetchData } from "./fetchData";
 
-export const useData = (): [Car[], Dispatch<SetStateAction<Car[]>>] => {
-  const [data, setData] = useState<Car[]>([]);
+export const useData = <T>(
+  url: string,
+  initialState: T
+): [T, Dispatch<SetStateAction<T>>] => {
+  const [data, setData] = useState<T>(initialState);
 
   useEffect(() => {
-    getCarsData().then((response) => setData(response));
+    fetchData<T>(url).then((response) => setData(response));
   }, [setData]);
 
   return [data, setData];

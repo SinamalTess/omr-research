@@ -7,11 +7,13 @@ import { Navbar } from "./vision/cars/components/Navbar";
 import { Controls } from "./vision/cars/components";
 import { useData } from "./vision/cars/http";
 import { TrainingData } from "./vision/types";
-import { Coordinates } from "./vision/cars/domain";
+import { Car, Coordinates } from "./vision/cars/domain";
 import { getModel, startTraining } from "./vision/cars/model";
 import { dataToCoordinates } from "./vision/cars/adapters";
 import { Datashape } from "./vision/cars/views/Datashape";
 import { filterCarsData } from "./vision/cars/adapters/filterCarsData";
+
+const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 
 type TrainingStatus = "waiting" | "training" | "done";
 
@@ -22,7 +24,7 @@ function App() {
     },
   });
 
-  const [originalData] = useData();
+  const [originalData] = useData<Car[]>(URL, []);
   const data = filterCarsData(originalData);
   const [epochs, setEpochs] = useState(50);
   const [currentEpoch, setCurrentEpoch] = useState(0);
