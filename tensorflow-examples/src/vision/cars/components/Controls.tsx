@@ -11,7 +11,7 @@ interface ControlsProps {
 
 const StyledProgressBar = styled(LinearProgress)`
   width: 100px;
-  margin: 0 15px;
+  margin: 0 ${({ theme }) => theme.spacing(2)};
 `;
 
 export const Controls = ({

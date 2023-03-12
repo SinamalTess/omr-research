@@ -3,11 +3,12 @@ import { Grid } from "@mui/material";
 
 interface DashboardProps {
   children: ReactElement | ReactElement[];
+  className?: string;
 }
 
-export const Dashboard = ({ children }: DashboardProps) => {
+export const Dashboard = ({ children, className }: DashboardProps) => {
   return (
-    <Grid container spacing={2}>
+    <Grid className={className} container spacing={2}>
       {children}
     </Grid>
   );

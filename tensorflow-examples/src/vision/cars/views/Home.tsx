@@ -17,7 +17,11 @@ const options = {
 
 type TrainingStatus = "waiting" | "training" | "done";
 
-export const Home = () => {
+interface HomeProps {
+  className?: string
+}
+
+export const Home = ({className}: HomeProps) => {
   const [data] = useData();
   const [epochs] = useState(50);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
@@ -59,37 +63,39 @@ export const Home = () => {
   const isTraining = trainingStatus === "training";
 
   return (
-    <div className="App">
-      <Dashboard>
-        <Grid
-          container
-          item
-          xs={12}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
-          <Typography variant="h2" component="h2">
-            Horsepower vs MPG (miles per gallon)
-          </Typography>
-          <Controls
-            epochs={epochs}
-            isTraining={isTraining}
-            progress={progress}
-            onClick={handleClick}
-          />
-        </Grid>
-        <Grid item xs={8}>
-          <DataPreview
-            data={chartData}
-            options={options}
-            predictions={predictions}
-          />
-        </Grid>
-        <Grid item xs={4}>
+    <Dashboard className={className}>
+      <Grid
+        container
+        item
+        xs={12}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Typography variant="h2" component="h2">
+          Horsepower vs MPG (miles per gallon)
+        </Typography>
+        <Controls
+          epochs={epochs}
+          isTraining={isTraining}
+          progress={progress}
+          onClick={handleClick}
+        />
+      </Grid>
+      <Grid container item xs={8}>
+        <DataPreview
+          data={chartData}
+          options={options}
+          predictions={predictions}
+        />
+      </Grid>
+      <Grid container item xs={4} spacing={2}>
+        <Grid item xs={12}>
           <ModelSummary model={model} />
+        </Grid>
+        <Grid item xs={12}>
           <TrainingPreview data={dataTraining} />
         </Grid>
-      </Dashboard>
-    </div>
+      </Grid>
+    </Dashboard>
   );
 };
