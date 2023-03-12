@@ -106,7 +106,11 @@ function App() {
           />
         </TabPanel>
         <TabPanel value="2">
-          <Datashape originalData={originalData} filteredData={data} />
+          <Datashape
+            url={URL}
+            originalData={originalData}
+            filteredData={data}
+          />
         </TabPanel>
       </TabContext>
     </ThemeProvider>
