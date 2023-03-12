@@ -35,7 +35,7 @@ function App() {
   const [activeTab, setActiveTab] = useState("1");
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
-  const chartData = dataToCoordinates(data);
+  const chartData = dataToCoordinates(data, 'horsepower', 'mpg');
 
   const reset = () => {
     setCurrentEpoch(0);
