@@ -1,5 +1,4 @@
 import {
-  CartesianGrid,
   Scatter,
   ScatterChart as ReScatterChart,
   Tooltip,
@@ -7,9 +6,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Coordinates } from "../domain";
+import { Coordinates } from "../../domain";
 import React from "react";
-import { BaseChartOptions } from "../../types";
+import { BaseChartOptions } from "../../../types";
+import { Grid } from "./Grid";
+import { Axes } from "./Axes";
 
 export interface ScatterChartOptions extends BaseChartOptions {
   xLabel: string;
@@ -26,9 +27,8 @@ export const ScatterChart = ({ data, options }: ScatterChartProps) => {
   const _name = name ?? `${yLabel} vs ${xLabel}`;
   return (
     <ReScatterChart height={500} width={500}>
-      <CartesianGrid />
-      <XAxis type="number" dataKey="x" name={xLabel} unit={xLabel} />
-      <YAxis type="number" dataKey="y" name={yLabel} unit={yLabel} />
+      {Grid()}
+      {Axes({ x: { key: xLabel }, y: { key: yLabel } })}
       <Legend />
       <Tooltip />
       <Scatter name={_name} data={data} fill="#8884d8" />

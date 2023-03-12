@@ -1,16 +1,14 @@
 import {
-  CartesianGrid,
   Legend,
   Line,
   LineChart as ReLineChart,
   ResponsiveContainer,
   Tooltip,
-  XAxis,
-  YAxis,
 } from "recharts";
-import { BaseChartOptions } from "../../types";
+import { BaseChartOptions } from "../../../types";
 import React from "react";
-import { useTheme } from "@mui/material";
+import { Grid } from "./Grid";
+import { Axes } from "./Axes";
 
 export interface LineChartOptions extends BaseChartOptions {
   xLabel: string;
@@ -25,16 +23,12 @@ interface LineChartProps {
 
 export const LineChart = ({ data, options }: LineChartProps) => {
   const { dataKeys, yLabel, xLabel } = options;
-  const theme = useTheme();
-  const colorAxes = theme.palette.grey[500];
-  const colorGrid = theme.palette.grey[700];
 
   return (
     <ResponsiveContainer width="100%" height={300}>
       <ReLineChart data={data}>
-        <CartesianGrid stroke={colorGrid} strokeDasharray="3" />
-        <XAxis dataKey={xLabel} stroke={colorAxes} />
-        <YAxis dataKey={yLabel} stroke={colorAxes} />
+        {Grid()}
+        {Axes({ x: { key: xLabel }, y: { key: yLabel } })}
         <Legend />
         <Tooltip />
         {dataKeys.map((dataKey) => (

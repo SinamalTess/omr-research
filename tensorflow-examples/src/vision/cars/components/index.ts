@@ -1,5 +1,4 @@
 export * from './Dashboard'
-export * from './LineChart'
 export * from './ModelSummary'
-export * from './ScatterChart'
+export * from './visualizations'
 export * from './controls'
