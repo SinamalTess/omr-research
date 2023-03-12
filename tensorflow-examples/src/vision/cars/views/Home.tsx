@@ -1,4 +1,4 @@
-import { Dashboard, ModelSummary, Controls } from "../components";
+import { ModelSummary, Controls } from "../components";
 import React, { useState } from "react";
 import { useData } from "../http";
 import { dataToCoordinates } from "../adapters";
@@ -6,8 +6,12 @@ import { getModel, startTraining } from "../model";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
 import { TrainingData } from "../../types";
-import { Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Coordinates } from "../domain";
+import { Navbar } from "../components/Dashboard/Navbar";
+import { MainPreview } from "../components/Dashboard/MainPreview";
+import { Sidebar } from "../components/Dashboard/Sidebar";
+import { Dashboard } from "../components";
 
 const options = {
   yLabel: "mpg",
@@ -57,7 +61,7 @@ export const Home = ({ className }: HomeProps) => {
       onEpochEnd: handleEpochEnd,
       onTrainingEnd: handleTrainingEnd,
     });
-  }
+  };
 
   const handleEpochsChanged = (newEpochsValue: number) => {
     reset();
@@ -68,13 +72,7 @@ export const Home = ({ className }: HomeProps) => {
 
   return (
     <Dashboard className={className}>
-      <Grid
-        container
-        item
-        xs={12}
-        justifyContent={"space-between"}
-        alignItems={"center"}
-      >
+      <Navbar>
         <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)
         </Typography>
@@ -86,22 +84,18 @@ export const Home = ({ className }: HomeProps) => {
           onChangeEpochs={handleEpochsChanged}
           onEnterKeyDown={train}
         />
-      </Grid>
-      <Grid container item xs={8}>
+      </Navbar>
+      <MainPreview>
         <DataPreview
           data={chartData}
           options={options}
           predictions={predictions}
         />
-      </Grid>
-      <Grid container item xs={4} spacing={2}>
-        <Grid item xs={12}>
-          <ModelSummary model={model} />
-        </Grid>
-        <Grid item xs={12}>
-          <TrainingPreview data={dataTraining} />
-        </Grid>
-      </Grid>
+      </MainPreview>
+      <Sidebar>
+        <ModelSummary model={model} />
+        <TrainingPreview data={dataTraining} />
+      </Sidebar>
     </Dashboard>
   );
 };
