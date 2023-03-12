@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](///compare/v1.5.0...v1.6.0) (2023-03-12)
+
+
+### Features
+
+* **vision:** create datashape tab 30d5417
+* **vision:** introduce new data shape tab 3643403
+* **vision:** show activation function on table 46e2a24
+* **vision:** show fetched url and number of entries d33401d
+* **vision:** show originaldata vs filtered 39b2cc9
+* **vision:** show tensor labels and input values 056b085
+* **vision:** trigger training on press enter key 080eae3
+
+
+### Bug Fixes
+
+* **vision:** change color of grids and axes in charts 83e7dee
+* **vision:** fix error related to key in Line component 86c0e1f
+
 ## [1.5.0](///compare/v1.4.0...v1.5.0) (2023-03-12)
 
 
