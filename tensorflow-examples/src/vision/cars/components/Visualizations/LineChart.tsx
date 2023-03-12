@@ -33,6 +33,7 @@ export const LineChart = ({ data, options }: LineChartProps) => {
         <Tooltip />
         {dataKeys.map((dataKey) => (
           <Line
+            key={dataKey}
             type="monotone"
             dataKey={dataKey}
             stroke="#8884d8"
