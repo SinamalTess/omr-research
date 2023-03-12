@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import { Coordinates } from "../domain";
 import React from "react";
-import { BaseChartOptions } from "../../types/BaseChartOptions";
+import { BaseChartOptions } from "../../types";
 
 export interface ScatterChartOptions extends BaseChartOptions {
   xLabel: string;

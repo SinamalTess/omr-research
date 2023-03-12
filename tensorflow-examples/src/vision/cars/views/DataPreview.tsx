@@ -1,4 +1,4 @@
-import { ScatterChartOptions } from "../components/ScatterChart";
+import { ScatterChartOptions } from "../components";
 import React from "react";
 import {
   CartesianGrid,

@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { ChangeEvent, KeyboardEvent, MouseEventHandler } from "react";
+import React, { ChangeEvent, MouseEventHandler } from "react";
 
 interface ControlsProps {
   isTraining: boolean;

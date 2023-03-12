@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { BaseChartOptions } from "../../types/BaseChartOptions";
+import { BaseChartOptions } from "../../types";
 import React from "react";
 
 export interface LineChartOptions extends BaseChartOptions {

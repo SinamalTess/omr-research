@@ -1,14 +1,12 @@
-import { Dashboard } from "../components/Dashboard";
-import { ModelSummary } from "../components/Table";
+import { Dashboard, ModelSummary, Controls } from "../components";
 import React, { useState } from "react";
 import { useData } from "../http/useData";
 import { dataToChartData } from "../adapters";
 import { getModel, startTraining } from "../model";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
-import { TrainingData } from "../../types/TrainingData";
+import { TrainingData } from "../../types";
 import { Grid, Typography } from "@mui/material";
-import { Controls } from "../components/Controls";
 
 const options = {
   yLabel: "mpg",
@@ -18,10 +16,10 @@ const options = {
 type TrainingStatus = "waiting" | "training" | "done";
 
 interface HomeProps {
-  className?: string
+  className?: string;
 }
 
-export const Home = ({className}: HomeProps) => {
+export const Home = ({ className }: HomeProps) => {
   const [data] = useData();
   const [epochs, setEpochs] = useState(50);
   const [currentEpoch, setCurrentEpoch] = useState(0);
@@ -62,8 +60,8 @@ export const Home = ({className}: HomeProps) => {
 
   const handleEpochsChanged = (newEpochsValue: number) => {
     reset();
-    setEpochs(newEpochsValue)
-  }
+    setEpochs(newEpochsValue);
+  };
 
   const isTraining = trainingStatus === "training";
 
