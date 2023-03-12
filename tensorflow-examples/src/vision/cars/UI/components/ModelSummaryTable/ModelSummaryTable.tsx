@@ -19,10 +19,10 @@ const HEADINGS = [
 ];
 
 const getRow = (layer: tf.layers.Layer, i: number, model: tf.LayersModel) => {
+  const { outputShape, name } = layer;
   const type = layer.constructor.name;
-  const { outputShape } = layer;
-  const input = `[${layer.batchInputShape?.map((shape) => `${shape}`)}]`;
-  const output = `[${outputShape.map((shape) => `${shape}`)}]`;
+  const input = JSON.stringify(layer.batchInputShape);
+  const output = JSON.stringify(outputShape);
   const params = layer.countParams();
   // @ts-ignore
   const activationFunction = layer.activation.constructor.name ?? "";
@@ -33,24 +33,23 @@ const getRow = (layer: tf.layers.Layer, i: number, model: tf.LayersModel) => {
       {type} {ChipLayerPosition(i, model.layers.length)}
     </>
   );
-  return [typeWithChip, input, output, params, units, activationFunction];
+
+  const row = [typeWithChip, input, output, params, units, activationFunction];
+  const rowWithCellKeys = row.map((cell, i) => ({
+    key: type + i,
+    content: cell,
+  }));
+
+  return {
+    key: name,
+    content: rowWithCellKeys,
+  };
 };
 
 export const ModelSummaryTable = ({ model }: ModelSummaryProps) => {
   const type = model.constructor.name;
-
   const rows = model.layers.map((layer, i) => {
-    const { name } = layer;
-    const row = getRow(layer, i, model);
-    const rowWithCellKeys = row.map((cell, i) => ({
-      key: type + i,
-      content: cell,
-    }));
-
-    return {
-      key: name,
-      content: rowWithCellKeys,
-    };
+    return getRow(layer, i, model);
   });
 
   return (
