@@ -71,7 +71,7 @@ export const Home = ({className}: HomeProps) => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Typography variant="h2" component="h2">
+        <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)
         </Typography>
         <Controls

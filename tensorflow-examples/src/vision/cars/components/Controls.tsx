@@ -1,5 +1,5 @@
 import { TrainButton } from "./TrainButton";
-import { Grid, LinearProgress, styled } from "@mui/material";
+import { Grid, LinearProgress, styled, Typography } from "@mui/material";
 import React, { MouseEventHandler } from "react";
 
 interface ControlsProps {
@@ -23,7 +23,7 @@ export const Controls = ({
   return (
     <Grid display={"flex"} justifyItems={"space-between"} alignItems={"center"}>
       <StyledProgressBar value={progress} variant="determinate" />
-      {epochs}
+      <Typography color={"textSecondary"}>{epochs}</Typography>
       <TrainButton isLoading={isTraining} onClick={onClick} />
     </Grid>
   );
