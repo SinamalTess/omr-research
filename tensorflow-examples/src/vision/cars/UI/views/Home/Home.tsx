@@ -1,11 +1,11 @@
-import { ModelSummary } from "../../components";
+import { ModelSummaryTable } from "../../components";
 import React from "react";
 import { MainPreview, Sidebar, Dashboard } from "../../components";
 import { Coordinates } from "../../../domain";
 import { TrainingData } from "../../../../types";
 import * as tf from "@tensorflow/tfjs";
-import {DataPreview} from "./DataPreview";
-import {TrainingPreview} from "./TrainingPreview";
+import { DataPreview } from "./DataPreview";
+import { TrainingPreview } from "./TrainingPreview";
 
 interface HomeProps {
   className?: string;
@@ -37,7 +37,7 @@ export const Home = ({
         />
       </MainPreview>
       <Sidebar>
-        <ModelSummary model={model} />
+        <ModelSummaryTable model={model} />
         <TrainingPreview data={dataTraining} />
       </Sidebar>
     </Dashboard>

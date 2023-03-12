@@ -1,5 +1,5 @@
 export * from './Dashboard'
-export * from './ModelSummary'
+export * from './ModelSummaryTable'
 export * from './Visualizations'
 export * from './Controls'
 export * from './Navbar'
