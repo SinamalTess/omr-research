@@ -1,6 +1,6 @@
 import { Car, NormalizedCar } from "../domain";
 
-export const filterData = (data: Car[]): NormalizedCar[] => {
+export const filterCarsData = (data: Car[]): NormalizedCar[] => {
   return data
     .map((car: Car) => ({
       mpg: car.Miles_per_Gallon,

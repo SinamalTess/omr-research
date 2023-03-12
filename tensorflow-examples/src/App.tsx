@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Home } from "./vision/cars/views/Home";
-import { Box, styled, Tab, Typography } from "@mui/material";
+import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Navbar } from "./vision/cars/components/Navbar";
 import { Controls } from "./vision/cars/components";
@@ -10,7 +10,8 @@ import { TrainingData } from "./vision/types";
 import { Coordinates } from "./vision/cars/domain";
 import { getModel, startTraining } from "./vision/cars/model";
 import { dataToCoordinates } from "./vision/cars/adapters";
-import { Datashape } from "./vision/cars/views/Datashape/Datashape";
+import { Datashape } from "./vision/cars/views/Datashape";
+import { filterCarsData } from "./vision/cars/adapters/filterCarsData";
 
 type TrainingStatus = "waiting" | "training" | "done";
 
@@ -21,7 +22,8 @@ function App() {
     },
   });
 
-  const [data] = useData();
+  const [originalData] = useData();
+  const data = filterCarsData(originalData);
   const [epochs, setEpochs] = useState(50);
   const [currentEpoch, setCurrentEpoch] = useState(0);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
@@ -102,7 +104,7 @@ function App() {
           />
         </TabPanel>
         <TabPanel value="2">
-          <Datashape />
+          <Datashape originalData={originalData} filteredData={data} />
         </TabPanel>
       </TabContext>
     </ThemeProvider>
