@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](///compare/v1.3.0...v1.4.0) (2023-03-12)
+
+
+### Features
+
+* **vision:** better styles for dashboard view 24f9c36
+* **vision:** remove dots on line components 0955762
+* **vision:** show progress bar cf59c76
+
+
+### Bug Fixes
+
+* **vision:** change font colors a11b889
+* **vision:** improve training button styles 975d3ba
+* **vision:** remove minWidth on table component a10ec08
+* **vision:** remove ts-ignore on ThemeProvider 4fa280e
+* **vision:** reset model when the train button is clicked 21a571c
+
 ## [1.3.0](///compare/v1.2.0...v1.3.0) (2023-03-11)
 
 
