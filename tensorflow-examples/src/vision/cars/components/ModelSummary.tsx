@@ -38,13 +38,15 @@ const getRow = (layer: tf.layers.Layer, i: number, model: tf.LayersModel) => {
   const output = `[${outputShape.map((shape) => `${shape}`)}]`;
   const params = layer.countParams();
   // @ts-ignore
+  const activationFunction = layer.activation.constructor.name ?? "";
+  // @ts-ignore
   const units = layer.units ?? 0;
   const typeWithChip = (
     <>
       {type} {getChip(i, model.layers.length)}
     </>
   );
-  return [typeWithChip, input, output, params, units];
+  return [typeWithChip, input, output, params, units, activationFunction];
 };
 
 export const ModelSummary = ({ model }: ModelSummaryProps) => {
@@ -56,6 +58,7 @@ export const ModelSummary = ({ model }: ModelSummaryProps) => {
     "Output shape",
     "Params",
     "Neurons",
+    "Activation Function",
   ];
 
   const rows = model.layers.map((layer, i) => {
