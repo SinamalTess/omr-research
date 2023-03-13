@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Home } from "./vision/cars/UI/views/Home";
+import { Home } from "./vision/UI/views/Home";
 import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Controls, Navbar } from "./vision/cars/UI/components";
-import { useData } from "./vision/cars/UI/hooks";
+import { Controls, Navbar } from "./vision/UI/components";
+import { useData } from "./vision/UI/hooks";
 import { TrainingData } from "./vision/types";
-import { Car, Coordinates } from "./vision/cars/domain";
+import { Car, Coordinates } from "./vision/domain";
 import {
   getModel,
   getModelParams,
   ModelParams,
   startTraining,
-} from "./vision/cars/model";
-import { dataToCoordinates } from "./vision/cars/adapters";
-import { Datashape } from "./vision/cars/UI/views/Datashape";
-import { filterCarsData } from "./vision/cars/adapters";
-import { TrainingLogs } from "./vision/cars/UI/views/TrainingLogs";
+} from "./vision/model";
+import { dataToCoordinates } from "./vision/adapters";
+import { Datashape } from "./vision/UI/views/Datashape";
+import { filterCarsData } from "./vision/adapters";
+import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 

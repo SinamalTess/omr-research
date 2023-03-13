@@ -1,5 +1,5 @@
 import { Coordinates } from "../domain";
-import { isObject } from "../../types/utils";
+import { isObject } from "../types/utils";
 
 export const dataToCoordinates = (
   data: unknown[],

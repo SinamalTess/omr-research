@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import { Coordinates } from "../../../domain";
 import React from "react";
-import { BaseChartOptions } from "../../../../types";
+import { BaseChartOptions } from "../../../types";
 import { Grid } from "./Grid";
 import { Axes } from "./Axes";
 

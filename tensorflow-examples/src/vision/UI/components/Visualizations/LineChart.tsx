@@ -5,7 +5,7 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import { BaseChartOptions } from "../../../../types";
+import { BaseChartOptions } from "../../../types";
 import React from "react";
 import { Grid } from "./Grid";
 import { Axes } from "./Axes";

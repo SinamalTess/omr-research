@@ -2,7 +2,7 @@ import { ModelSummaryTable } from "../../components";
 import React from "react";
 import { MainPreview, Sidebar, Dashboard } from "../../components";
 import { Coordinates } from "../../../domain";
-import { TrainingData } from "../../../../types";
+import { TrainingData } from "../../../types";
 import * as tf from "@tensorflow/tfjs";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
