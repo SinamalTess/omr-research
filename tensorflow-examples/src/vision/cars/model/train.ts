@@ -29,9 +29,11 @@ export const startTraining = (
   const { onEpochEnd, onTrainingEnd, modelParams } = config;
   const { tensors } = modelParams;
 
-  trainModel(model, modelParams, onEpochEnd).then(() => {
+  trainModel(model, modelParams, onEpochEnd).then((History) => {
+    const losses = History.history.loss
+    const finalLoss = losses[Math.max(losses.length - 1, 0)]
     const predictedPoints = testModel(model, tensors);
-    onTrainingEnd(predictedPoints);
+    onTrainingEnd(predictedPoints, finalLoss);
   });
 };
 

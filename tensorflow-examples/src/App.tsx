@@ -39,7 +39,7 @@ function App() {
   const [modelParams, setModelParams] = useState<ModelParams>();
   const tensors = modelParams ? modelParams.tensors : null;
   const [activeTab, setActiveTab] = useState("1");
-  const [trainingLogs, setTrainingLogs] = useState<TrainingData[]>([]);
+  const [trainingLogs, setTrainingLogs] = useState<number[]>([]);
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
   const chartData = dataToCoordinates(data, "horsepower", "mpg");
@@ -50,15 +50,6 @@ function App() {
       setModelParams(modelParams);
     }
   }, [originalData, epochs]);
-
-  useEffect(() => {
-    if (trainingStatus === "done") {
-      setTrainingLogs((prevState) => [
-        ...prevState,
-        dataTraining[dataTraining.length - 1],
-      ]);
-    }
-  }, [trainingStatus]);
 
   const reset = () => {
     setCurrentEpoch(0);
@@ -73,7 +64,11 @@ function App() {
     setCurrentEpoch(epoch);
   };
 
-  const handleTrainingEnd = (predictions: Coordinates[]) => {
+  const handleTrainingEnd = (predictions: Coordinates[], finalLoss: number) => {
+    setTrainingLogs((prevState) => [
+      ...prevState,
+      finalLoss,
+    ]);
     setPredictions(predictions);
     setTrainingStatus("done");
   };

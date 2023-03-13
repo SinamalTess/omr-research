@@ -1,18 +1,16 @@
-import { Grid, Typography, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import { StyledTable } from "../../components/StyledTable";
-import { TrainingData } from "../../../../types";
 
 const HEADINGS = ["Iteration", "Loss", "Compared to previous", "Model"];
 
 interface TrainingLogsProps {
-  trainingLogs: TrainingData[];
+  trainingLogs: number[];
 }
 
 export const TrainingLogs = ({ trainingLogs }: TrainingLogsProps) => {
   const theme = useTheme();
-  const rows = trainingLogs.map((log, i) => {
-    const { loss } = log;
-    const comparisonPrevious = loss - trainingLogs[Math.max(i - 1, 0)].loss;
+  const rows = trainingLogs.map((loss, i) => {
+    const comparisonPrevious = loss - trainingLogs[Math.max(i - 1, 0)];
     const isPositiveDifference = comparisonPrevious > 0;
     const color = isPositiveDifference
       ? theme.palette.primary.main
