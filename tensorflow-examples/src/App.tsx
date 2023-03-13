@@ -12,11 +12,11 @@ import {
   getModelParams,
   ModelParams,
   startTraining,
-  Tensors,
 } from "./vision/cars/model";
 import { dataToCoordinates } from "./vision/cars/adapters";
 import { Datashape } from "./vision/cars/UI/views/Datashape";
 import { filterCarsData } from "./vision/cars/adapters";
+import { TrainingLogs } from "./vision/cars/UI/views/TrainingLogs";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 
@@ -39,9 +39,26 @@ function App() {
   const [modelParams, setModelParams] = useState<ModelParams>();
   const tensors = modelParams ? modelParams.tensors : null;
   const [activeTab, setActiveTab] = useState("1");
+  const [trainingLogs, setTrainingLogs] = useState<TrainingData[]>([]);
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
   const chartData = dataToCoordinates(data, "horsepower", "mpg");
+
+  useEffect(() => {
+    if (data.length) {
+      const { modelParams } = getModelParams(data, epochs);
+      setModelParams(modelParams);
+    }
+  }, [originalData, epochs]);
+
+  useEffect(() => {
+    if (trainingStatus === "done") {
+      setTrainingLogs((prevState) => [
+        ...prevState,
+        dataTraining[dataTraining.length - 1],
+      ]);
+    }
+  }, [trainingStatus]);
 
   const reset = () => {
     setCurrentEpoch(0);
@@ -60,13 +77,6 @@ function App() {
     setPredictions(predictions);
     setTrainingStatus("done");
   };
-
-  useEffect(() => {
-    if (data.length) {
-      const { modelParams } = getModelParams(data, epochs);
-      setModelParams(modelParams);
-    }
-  }, [originalData]);
 
   const train = () => {
     if (modelParams) {
@@ -111,6 +121,7 @@ function App() {
           <TabList onChange={handleTabChange}>
             <Tab label="Home" value="1" />
             <Tab label="Data Shape" value="2" />
+            <Tab label="Training Logs" value="3" />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -128,6 +139,9 @@ function App() {
             filteredData={data}
             tensors={tensors}
           />
+        </TabPanel>
+        <TabPanel value="3">
+          <TrainingLogs trainingLogs={trainingLogs} />
         </TabPanel>
       </TabContext>
     </ThemeProvider>
