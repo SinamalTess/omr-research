@@ -10,6 +10,7 @@ interface ModelSummaryProps {
 }
 
 const HEADINGS = [
+  "Layer name",
   "Layer type",
   "Input Shape",
   "Output shape",
@@ -34,7 +35,7 @@ const getRow = (layer: tf.layers.Layer, i: number, model: tf.LayersModel) => {
     </>
   );
 
-  const row = [typeWithChip, input, output, params, units, activationFunction];
+  const row = [name, typeWithChip, input, output, params, units, activationFunction];
   const rowWithCellKeys = row.map((cell, i) => ({
     key: type + i,
     content: cell,
