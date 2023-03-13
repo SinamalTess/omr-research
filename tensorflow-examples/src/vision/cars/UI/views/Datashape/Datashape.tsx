@@ -46,8 +46,6 @@ export const Datashape = ({
     ? codify(tensorsLabels.slice(0, maxEntries))
     : "";
 
-  console.log(tensors);
-
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>

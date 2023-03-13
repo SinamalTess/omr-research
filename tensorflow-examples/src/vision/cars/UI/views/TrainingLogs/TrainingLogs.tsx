@@ -9,16 +9,16 @@ interface TrainingLogsProps {
 }
 
 export const TrainingLogs = ({ trainingLogs }: TrainingLogsProps) => {
-  const theme = useTheme()
+  const theme = useTheme();
   const rows = trainingLogs.map((log, i) => {
     const { loss } = log;
     const comparisonPrevious = loss - trainingLogs[Math.max(i - 1, 0)].loss;
     const isPositiveDifference = comparisonPrevious > 0;
-    const color = isPositiveDifference ? theme.palette.primary.main : theme.palette.grey[700];
+    const color = isPositiveDifference
+      ? theme.palette.primary.main
+      : theme.palette.grey[700];
     const ComparisonPrevious = () => (
-      <span style={{color: `${color}`}}>
-        {comparisonPrevious}
-      </span>
+      <span style={{ color: `${color}` }}>{comparisonPrevious}</span>
     );
     return {
       key: `${i}`,
@@ -30,9 +30,5 @@ export const TrainingLogs = ({ trainingLogs }: TrainingLogsProps) => {
     };
   });
 
-  return (
-    <Grid container xs={12}>
-      <StyledTable headings={HEADINGS} rows={rows} />
-    </Grid>
-  );
+  return <StyledTable headings={HEADINGS} rows={rows} />;
 };

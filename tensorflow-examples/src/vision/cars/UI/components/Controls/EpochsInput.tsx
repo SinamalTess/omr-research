@@ -32,18 +32,16 @@ export const EpochsInput = ({
   };
 
   return (
-    <Typography color={"textSecondary"}>
-      <TextField
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">{`${currentEpoch} / `}</InputAdornment>
-          ),
-        }}
-        value={epochs}
-        size="small"
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
-    </Typography>
+    <TextField
+      InputProps={{
+        startAdornment: (
+          <InputAdornment position="start">{`${currentEpoch} / `}</InputAdornment>
+        ),
+      }}
+      value={epochs}
+      size="small"
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+    />
   );
 };

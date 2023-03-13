@@ -6,13 +6,11 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ children }: SidebarProps) => {
-  const _children = Array.isArray(children) ? children : [children];
-
   return (
     <Grid container item xs={4} spacing={2}>
-      {_children.map((children) => (
+      {React.Children.map(children, (child) => (
         <Grid item xs={12}>
-          {children}
+          {child}
         </Grid>
       ))}
     </Grid>
