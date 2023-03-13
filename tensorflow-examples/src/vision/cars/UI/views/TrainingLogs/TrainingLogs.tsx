@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { Chip, Grid, Typography, useTheme } from "@mui/material";
 import { StyledTable } from "../../components/StyledTable";
 
 const HEADINGS = ["Iteration", "Loss", "Compared to previous", "Model"];
@@ -28,5 +28,23 @@ export const TrainingLogs = ({ trainingLogs }: TrainingLogsProps) => {
     };
   });
 
-  return <StyledTable headings={HEADINGS} rows={rows} />;
+  const roundValue = 4;
+  const average = trainingLogs.reduce((p, c) => p + c, 0) / trainingLogs.length;
+  const averageRounded = average.toFixed(roundValue);
+  const best = Math.min(...trainingLogs);
+  const bestRounded = best.toFixed(roundValue);
+
+  return (
+    <Grid container>
+      <Grid item xs={8}>
+        <StyledTable headings={HEADINGS} rows={rows} />
+      </Grid>
+      {trainingLogs.length ? (
+        <Grid item xs={4}>
+          <Chip label={`Average: ${averageRounded}`}></Chip>
+          <Chip label={`Best: ${bestRounded}`}></Chip>
+        </Grid>
+      ) : null}
+    </Grid>
+  );
 };
