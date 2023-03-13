@@ -16,8 +16,8 @@ interface HomeProps {
 }
 
 const options = {
-  yLabel: "mpg",
-  xLabel: "hp",
+  yKey: "mpg",
+  xKey: "hp",
 };
 
 export const Home = ({

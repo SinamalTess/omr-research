@@ -23,8 +23,8 @@ export const DataPreview = ({
   options,
   predictions,
 }: DataPreviewProps) => {
-  const { name, yLabel, xLabel } = options;
-  const _name = name ?? `${yLabel} vs ${xLabel}`;
+  const { name, yKey, xKey } = options;
+  const _name = name ?? `${yKey} vs ${xKey}`;
 
   return (
     <ResponsiveContainer width="100%" height="100%">

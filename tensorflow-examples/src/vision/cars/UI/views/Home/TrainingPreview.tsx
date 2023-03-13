@@ -7,8 +7,8 @@ interface TrainingPreviewProps {
 }
 
 const getOptions = (label: "mse" | "loss") => ({
-  yLabel: label,
-  xLabel: "epoch",
+  yKey: label,
+  xKey: "epoch",
   dataKeys: [label],
 });
 

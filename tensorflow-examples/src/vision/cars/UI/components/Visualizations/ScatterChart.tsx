@@ -11,8 +11,8 @@ import { Grid } from "./Grid";
 import { Axes } from "./Axes";
 
 export interface ScatterChartOptions extends BaseChartOptions {
-  xLabel: string;
-  yLabel: string;
+  xKey: string;
+  yKey: string;
 }
 
 interface ScatterChartProps {
@@ -21,12 +21,12 @@ interface ScatterChartProps {
 }
 
 export const ScatterChart = ({ data, options }: ScatterChartProps) => {
-  const { name, yLabel, xLabel } = options;
-  const _name = name ?? `${yLabel} vs ${xLabel}`;
+  const { name, yKey, xKey } = options;
+  const _name = name ?? `${yKey} vs ${xKey}`;
   return (
     <ReScatterChart height={500} width={500}>
       {Grid()}
-      {Axes({ x: { key: xLabel }, y: { key: yLabel } })}
+      {Axes({ x: { key: xKey }, y: { key: yKey } })}
       <Legend />
       <Tooltip />
       <Scatter name={_name} data={data} fill="#8884d8" />

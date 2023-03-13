@@ -11,8 +11,8 @@ import { Grid } from "./Grid";
 import { Axes } from "./Axes";
 
 export interface LineChartOptions extends BaseChartOptions {
-  xLabel: string;
-  yLabel: string;
+  xKey: string;
+  yKey: string;
   dataKeys: string[];
 }
 
@@ -22,13 +22,13 @@ interface LineChartProps {
 }
 
 export const LineChart = ({ data, options }: LineChartProps) => {
-  const { dataKeys, yLabel, xLabel } = options;
+  const { dataKeys, yKey, xKey } = options;
 
   return (
     <ResponsiveContainer width="100%" height={300}>
       <ReLineChart data={data}>
         {Grid()}
-        {Axes({ x: { key: xLabel }, y: { key: yLabel } })}
+        {Axes({ x: { key: xKey }, y: { key: yKey } })}
         <Legend />
         <Tooltip />
         {dataKeys.map((dataKey) => (
