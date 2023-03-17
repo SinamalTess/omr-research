@@ -3,17 +3,17 @@ import { getPreparedData } from "../../adapters";
 import { Tensor } from "@tensorflow/tfjs";
 import { NormalizedCar } from "../../domain";
 import { compileModel } from "./compile";
-import { NormalizationData, testModel } from "./test";
+import { NormalizationData, getPredictions } from "./test";
 
 interface TrainingConfig {
   onEpochEnd: Function;
   onTrainingEnd: Function;
-  modelParams: ModelParams ;
+  modelParams: ModelParams;
 }
 
 export interface Tensors extends NormalizationData {
-  normalizedInputs: tf.Tensor<tf.Rank>,
-  normalizedLabels: tf.Tensor<tf.Rank>,
+  normalizedInputs: tf.Tensor<tf.Rank>;
+  normalizedLabels: tf.Tensor<tf.Rank>;
 }
 
 export interface ModelParams extends ModelConfig {
@@ -30,9 +30,9 @@ export const startTraining = (
   const { tensors } = modelParams;
 
   trainModel(model, modelParams, onEpochEnd).then((History) => {
-    const losses = History.history.loss
-    const finalLoss = losses[Math.max(losses.length - 1, 0)]
-    const predictedPoints = testModel(model, tensors);
+    const losses = History.history.loss;
+    const finalLoss = losses[Math.max(losses.length - 1, 0)];
+    const predictedPoints = getPredictions(model, tensors);
     onTrainingEnd(predictedPoints, finalLoss);
   });
 };

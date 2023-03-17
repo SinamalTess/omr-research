@@ -11,7 +11,7 @@ export interface NormalizationData {
 // Generate predictions for a uniform range of numbers between 0 and 1;
 // We un-normalize the data by doing the inverse of the min-max scaling
 // that we did earlier.
-const getPredictions = (
+export const getPredictions = (
   model: tf.LayersModel,
   normalizationData: NormalizationData
 ): Coordinates[] => {
@@ -35,11 +35,4 @@ const getPredictions = (
   });
 
   return predictedPoints;
-};
-
-export const testModel = (
-  model: tf.LayersModel,
-  normalizationData: NormalizationData
-) => {
-  return getPredictions(model, normalizationData);
 };

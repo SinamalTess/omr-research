@@ -97,7 +97,6 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Navbar>
-        <Test />
         <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)
         </Typography>
