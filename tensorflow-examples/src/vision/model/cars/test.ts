@@ -17,21 +17,21 @@ export const getPredictions = (
 ): Coordinates[] => {
   const { inputMax, inputMin, labelMin, labelMax } = normalizationData;
 
-  const [xs, preds] = tf.tidy(() => {
-    const xsNorm = tf.linspace(0, 1, 100);
-    const predictions = model.predict(xsNorm.reshape([100, 1]));
+  const [inputs, predictions] = tf.tidy(() => {
+    const normalizedInputs = tf.linspace(0, 1, 100);
+    const predictions = model.predict(normalizedInputs.reshape([100, 1]));
 
-    const unNormXs = xsNorm.mul(inputMax.sub(inputMin)).add(inputMin);
+    const unNormalizedInputs = normalizedInputs.mul(inputMax.sub(inputMin)).add(inputMin);
 
     // @ts-ignore
-    const unNormPreds = predictions.mul(labelMax.sub(labelMin)).add(labelMin);
+    const unNormalizedPredictions = predictions.mul(labelMax.sub(labelMin)).add(labelMin);
 
     // Un-normalize the data
-    return [unNormXs.dataSync(), unNormPreds.dataSync()];
+    return [unNormalizedInputs.dataSync(), unNormalizedPredictions.dataSync()];
   });
 
-  const predictedPoints = Array.from(xs).map((val, i) => {
-    return { x: val, y: preds[i] };
+  const predictedPoints = Array.from(inputs).map((value, i) => {
+    return { x: value, y: predictions[i] };
   });
 
   return predictedPoints;
