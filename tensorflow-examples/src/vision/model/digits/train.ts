@@ -43,14 +43,14 @@ const getValidationData = (data: MnistData) => {
   // Ys = labels
   const [trainXs, trainYs] = tf.tidy(() => {
     const d = data.nextTrainBatch(TRAIN_DATA_SIZE);
-    return [d.xs.reshape([TRAIN_DATA_SIZE, 28, 28, 1]), d.labels];
+    return [d.inputs.reshape([TRAIN_DATA_SIZE, 28, 28, 1]), d.labels];
   });
 
   // Validation set that we will test the model on at the end of each epoch
   // Note : the validation data is never shown to the model during training.
   const [testXs, testYs] = tf.tidy(() => {
     const d = data.nextTestBatch(TEST_DATA_SIZE);
-    return [d.xs.reshape([TEST_DATA_SIZE, 28, 28, 1]), d.labels];
+    return [d.inputs.reshape([TEST_DATA_SIZE, 28, 28, 1]), d.labels];
   });
 
   return {

@@ -8,7 +8,7 @@ const modelParams = {
   epochs: 10
 }
 
-export const Test = () => {
+export const Mnist = () => {
   const [imageTensors, setImageTensors] = useState<tf.Tensor<tf.Rank>[]>([]);
   const model = getModel();
 
@@ -20,14 +20,14 @@ export const Test = () => {
 
     data.load().then(() => {
       const examples = data.nextTestBatch(20);
-      const numExamples = examples.xs.shape[0];
+      const numExamples = examples.inputs.shape[0];
       let _imageTensors: tf.Tensor<tf.Rank>[] = [];
 
       for (let i = 0; i < numExamples; i++) {
         const newImageTensor = tf.tidy(() => {
           // Reshape the image to 28x28 px
-          return examples.xs
-            .slice([i, 0], [1, examples.xs.shape[1]])
+          return examples.inputs
+            .slice([i, 0], [1, examples.inputs.shape[1]])
             .reshape([28, 28, 1]);
         });
         _imageTensors = [..._imageTensors, newImageTensor];

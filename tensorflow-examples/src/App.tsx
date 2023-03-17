@@ -17,8 +17,7 @@ import { dataToCoordinates } from "./vision/adapters";
 import { Datashape } from "./vision/UI/views/Datashape";
 import { filterCarsData } from "./vision/adapters";
 import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
-import { Test } from "./vision/UI/components/Test";
-import {AxesKeys} from "./vision/types/AxesKeys";
+import { AxesKeys } from "./vision/types/AxesKeys";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 
