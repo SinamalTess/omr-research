@@ -10,3 +10,9 @@ You can build an image classifier using only dense layers, however, convolutiona
 
 - [Image Kernels Explained Visually](https://setosa.io/ev/image-kernels/)
 - [Convolutional Neural Networks for Visual Recognition](https://cs231n.github.io/convolutional-networks/)
+
+## MaxPooling2d
+
+Downsampling using max values in an image region instead of averaging.
+
+![img.png](../../imgs/max_pooling_2d.png)
