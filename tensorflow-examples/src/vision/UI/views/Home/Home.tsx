@@ -6,6 +6,7 @@ import { TrainingData } from "../../../types";
 import * as tf from "@tensorflow/tfjs";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
+import { AxesKeys } from "../../../types/AxesKeys";
 
 interface HomeProps {
   className?: string;
@@ -13,12 +14,8 @@ interface HomeProps {
   predictions: Coordinates[];
   model: tf.LayersModel;
   dataTraining: TrainingData[];
+  axesKeys: AxesKeys;
 }
-
-const options = {
-  yKey: "mpg",
-  xKey: "hp",
-};
 
 export const Home = ({
   className,
@@ -26,7 +23,15 @@ export const Home = ({
   predictions,
   dataTraining,
   model,
+  axesKeys,
 }: HomeProps) => {
+  const [xKey, yKey] = axesKeys
+
+  const options = {
+    yKey,
+    xKey,
+  };
+
   return (
     <Dashboard className={className}>
       <MainPreview>

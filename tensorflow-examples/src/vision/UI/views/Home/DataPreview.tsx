@@ -30,7 +30,7 @@ export const DataPreview = ({
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart>
         {Grid()}
-        {Axes({ x: { key: "x", unit: "hp" }, y: { key: "y", unit: "mpg" } })}
+        {Axes({ x: { key: "x", unit: xKey }, y: { key: "y", unit: yKey } })}
         <Legend />
         <Tooltip />
         <Scatter name={_name} fill="#8884d8" data={data} />

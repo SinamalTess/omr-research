@@ -18,6 +18,7 @@ import { Datashape } from "./vision/UI/views/Datashape";
 import { filterCarsData } from "./vision/adapters";
 import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
 import { Test } from "./vision/UI/components/Test";
+import {AxesKeys} from "./vision/types/AxesKeys";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 
@@ -41,13 +42,14 @@ function App() {
   const tensors = modelParams ? modelParams.tensors : null;
   const [activeTab, setActiveTab] = useState("1");
   const [trainingLogs, setTrainingLogs] = useState<number[]>([]);
+  const [axesKeys, setAxesKeys] = useState<AxesKeys>(["horsepower", "mpg"]);
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
-  const chartData = dataToCoordinates(data, "horsepower", "mpg");
+  const chartData = dataToCoordinates(data, axesKeys[0], axesKeys[1]);
 
   useEffect(() => {
     if (data.length) {
-      const { modelParams } = getModelParams(data, epochs);
+      const { modelParams } = getModelParams(data, epochs, axesKeys);
       setModelParams(modelParams);
     }
   }, [originalData, epochs]);
@@ -120,6 +122,7 @@ function App() {
         <TabPanel value="1">
           <Home
             model={model}
+            axesKeys={axesKeys}
             predictions={predictions}
             dataPreview={chartData}
             dataTraining={dataTraining}

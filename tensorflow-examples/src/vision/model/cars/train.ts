@@ -4,6 +4,7 @@ import { Tensor } from "@tensorflow/tfjs";
 import { NormalizedCar } from "../../domain";
 import { compileModel } from "./compile";
 import { NormalizationData, getPredictions } from "./test";
+import { AxesKeys } from "../../types/AxesKeys";
 
 interface TrainingConfig {
   onEpochEnd: Function;
@@ -37,8 +38,12 @@ export const startTraining = (
   });
 };
 
-export const getModelParams = (data: NormalizedCar[], epochs: number) => {
-  const tensors = getPreparedData(data);
+export const getModelParams = (
+  data: unknown[],
+  epochs: number,
+  axesKeys: AxesKeys
+) => {
+  const tensors = getPreparedData(data, axesKeys);
   const { normalizedInputs, normalizedLabels } = tensors;
 
   return {
