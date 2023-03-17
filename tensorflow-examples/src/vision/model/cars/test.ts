@@ -1,5 +1,5 @@
 import * as tf from "@tensorflow/tfjs";
-import { Coordinates } from "../domain";
+import { Coordinates } from "../../domain";
 
 export interface NormalizationData {
   inputMax: tf.Tensor<tf.Rank>;

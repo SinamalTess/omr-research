@@ -12,11 +12,12 @@ import {
   getModelParams,
   ModelParams,
   startTraining,
-} from "./vision/model";
+} from "./vision/model/cars";
 import { dataToCoordinates } from "./vision/adapters";
 import { Datashape } from "./vision/UI/views/Datashape";
 import { filterCarsData } from "./vision/adapters";
 import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
+import { Test } from "./vision/UI/components/Test";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 
@@ -65,10 +66,7 @@ function App() {
   };
 
   const handleTrainingEnd = (predictions: Coordinates[], finalLoss: number) => {
-    setTrainingLogs((prevState) => [
-      ...prevState,
-      finalLoss,
-    ]);
+    setTrainingLogs((prevState) => [...prevState, finalLoss]);
     setPredictions(predictions);
     setTrainingStatus("done");
   };
@@ -99,6 +97,7 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <Navbar>
+        <Test />
         <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)
         </Typography>

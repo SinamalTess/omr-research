@@ -1,7 +1,7 @@
 import * as tf from "@tensorflow/tfjs";
-import { getPreparedData } from "../adapters";
+import { getPreparedData } from "../../adapters";
 import { Tensor } from "@tensorflow/tfjs";
-import { NormalizedCar } from "../domain";
+import { NormalizedCar } from "../../domain";
 import { compileModel } from "./compile";
 import { NormalizationData, testModel } from "./test";
 
@@ -65,10 +65,10 @@ const trainModel = async (
   const { inputs, epochs, labels } = config;
   compileModel(model);
 
-  const batchSize = 32;
+  const BATCH_SIZE = 32;
 
   return await model.fit(inputs, labels, {
-    batchSize,
+    batchSize: BATCH_SIZE,
     epochs,
     shuffle: true,
     callbacks: {
