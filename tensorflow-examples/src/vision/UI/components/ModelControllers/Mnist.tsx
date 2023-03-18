@@ -1,8 +1,8 @@
-import { MnistData } from "../../data";
+import { MnistData } from "../../../data";
 import * as tf from "@tensorflow/tfjs";
 import { useEffect, useState } from "react";
-import { ImageTensor } from "./Visualizations";
-import { getModel, startTraining } from "../../model/digits";
+import { ImageTensor } from "../Visualizations";
+import { getModel, startTraining } from "../../../model/digits";
 
 const modelParams = {
   epochs: 10,
@@ -15,6 +15,7 @@ interface MnistProps {
 
 const data = new MnistData();
 const model = getModel();
+const NB_PREVIEW_IMAGES = 20
 
 export const Mnist = ({ onEpochEnd, onTrainingEnd }: MnistProps) => {
   const [imageTensors, setImageTensors] = useState<tf.Tensor<tf.Rank>[]>([]);
@@ -29,7 +30,7 @@ export const Mnist = ({ onEpochEnd, onTrainingEnd }: MnistProps) => {
 
   useEffect(() => {
     data.load().then(() => {
-      const examples = data.nextTestBatch(20);
+      const examples = data.nextTestBatch(NB_PREVIEW_IMAGES);
       const numExamples = examples.inputs.shape[0];
       let _imageTensors: tf.Tensor<tf.Rank>[] = [];
 

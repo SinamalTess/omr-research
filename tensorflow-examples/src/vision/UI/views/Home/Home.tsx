@@ -1,21 +1,20 @@
-import { ModelSummaryTable } from "../../components";
+import { ModelSummaryTable, ScatterChartOptions } from "../../components";
 import React from "react";
 import { MainPreview, Sidebar, Dashboard } from "../../components";
 import { Coordinates } from "../../../domain";
-import { TrainingData } from "../../../types";
 import * as tf from "@tensorflow/tfjs";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
-import { AxesKeys } from "../../../types/AxesKeys";
-import { EvaluationData } from "../../../types/EvaluationData";
+import { EvaluationData, AxesKeys, TrainingData } from "../../../types";
+import { Sequential } from "@tensorflow/tfjs";
 
 interface HomeProps {
   className?: string;
   dataPreview: Coordinates[];
   evaluationData?: EvaluationData;
-  model: tf.LayersModel;
+  model: Sequential | null;
   dataTraining: TrainingData[];
-  axesKeys: AxesKeys;
+  axesKeys: AxesKeys | [];
 }
 
 export const Home = ({
@@ -36,14 +35,18 @@ export const Home = ({
   return (
     <Dashboard className={className}>
       <MainPreview>
-        <DataPreview
-          data={dataPreview}
-          options={options}
-          evaluationData={evaluationData}
-        />
+        {options.yKey && options.xKey ? (
+          <DataPreview
+            data={dataPreview}
+            options={options as ScatterChartOptions}
+            evaluationData={evaluationData}
+          />
+        ) : (
+          <></>
+        )}
       </MainPreview>
       <Sidebar>
-        <ModelSummaryTable model={model} />
+        {model ? <ModelSummaryTable model={model} /> : <></>}
         <TrainingPreview data={dataTraining} />
       </Sidebar>
     </Dashboard>

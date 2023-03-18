@@ -7,7 +7,7 @@ interface DatashapeProps {
   originalData: unknown[];
   filteredData: unknown[];
   tensors?: Tensors | null;
-  url: string;
+  url?: string;
 }
 
 const StyledDiv = styled("div")`
@@ -48,9 +48,11 @@ export const Datashape = ({
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <TextField size="small" fullWidth disabled value={url}></TextField>
-      </Grid>
+      {url ? (
+        <Grid item xs={12}>
+          <TextField size="small" fullWidth disabled value={url}></TextField>
+        </Grid>
+      ) : null}
       <Grid item xs={4}>
         <StyledDiv>
           <Chip label={`${originalData.length} original entries`} />

@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Home } from "./vision/UI/views/Home";
 import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Controls, Navbar } from "./vision/UI/components";
-import { useData } from "./vision/UI/hooks";
-import { TrainingData, EvaluationData } from "./vision/types";
-import { Car } from "./vision/domain";
-import {
-  getModel,
-  getModelParams,
-  ModelParams,
-  startTraining,
-} from "./vision/model/cars";
-import { dataToCoordinates } from "./vision/adapters";
+import { TrainingData, EvaluationData, AxesKeys } from "./vision/types";
+import { ModelParams } from "./vision/model/cars";
 import { Datashape } from "./vision/UI/views/Datashape";
-import { filterCarsData } from "./vision/adapters";
 import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
-import { AxesKeys } from "./vision/types/AxesKeys";
-import { Mnist } from "./vision/UI/components/Mnist";
+import { Mnist } from "./vision/UI/components/ModelControllers/Mnist";
+import { Cars } from "./vision/UI/components/ModelControllers";
+import { Coordinates } from "./vision/domain";
+import { Sequential } from "@tensorflow/tfjs";
 
-const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
-
-type TrainingStatus = "waiting" | "training" | "done";
+export type TrainingStatus = "waiting" | "training" | "done";
 
 function App() {
   const darkTheme = createTheme({
@@ -31,32 +22,30 @@ function App() {
     },
   });
 
-  const [originalData] = useData<Car[]>(URL, []);
-  const data = filterCarsData(originalData);
+  const [originalData, setOriginalData] = useState([]);
+  const [data, setData] = useState([]);
   const [epochs, setEpochs] = useState(50);
   const [currentEpoch, setCurrentEpoch] = useState(0);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
-  const [evaluationData, setEvaluationData] = useState<EvaluationData>([[], []]);
-  const [model, setModel] = useState(getModel());
+  const [chartData, setChartData] = useState<Coordinates[]>([]);
+  const [evaluationData, setEvaluationData] = useState<EvaluationData>([
+    [],
+    [],
+  ]);
+  const [model, setModel] = useState<null | Sequential>(null);
+  const [url, setUrl] = useState("");
   const [modelParams, setModelParams] = useState<ModelParams>();
   const tensors = modelParams ? modelParams.tensors : null;
   const [activeTab, setActiveTab] = useState("1");
   const [trainingLogs, setTrainingLogs] = useState<number[]>([]);
-  const [axesKeys, setAxesKeys] = useState<AxesKeys>(["horsepower", "mpg"]);
+  const [axesKeys, setAxesKeys] = useState<AxesKeys | []>([]);
   const [trainingStatus, setTrainingStatus] =
     useState<TrainingStatus>("waiting");
-  const chartData = dataToCoordinates(data, axesKeys[0], axesKeys[1]);
-
-  useEffect(() => {
-    if (data.length) {
-      const { modelParams } = getModelParams(data, epochs, axesKeys);
-      setModelParams(modelParams);
-    }
-  }, [originalData, epochs]);
 
   const reset = () => {
+    setTrainingStatus("waiting");
     setCurrentEpoch(0);
-    setModel(getModel());
+    setModel(null);
     setDataTraining([]);
     setEvaluationData([[], []]);
   };
@@ -77,16 +66,8 @@ function App() {
   };
 
   const train = () => {
-    if (modelParams) {
-      reset();
-      setTrainingStatus("training");
-      startTraining(model, data, {
-        modelParams,
-        axesKeys,
-        onEpochEnd: handleEpochEnd,
-        onTrainingEnd: handleTrainingEnd,
-      });
-    }
+    reset();
+    setTrainingStatus("training");
   };
 
   const handleEpochsChanged = (newEpochsValue: number) => {
@@ -102,7 +83,21 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Mnist onEpochEnd={handleEpochEnd} onTrainingEnd={handleTrainingEnd} />
+      {trainingStatus}
+      <Cars
+        epochs={epochs}
+        onEpochEnd={handleEpochEnd}
+        onTrainingEnd={handleTrainingEnd}
+        onOriginalDataChange={setOriginalData}
+        onDataChange={setData}
+        onDataUrlChange={setUrl}
+        onModelChange={setModel}
+        onAxesKeysChange={setAxesKeys}
+        onChartDataChange={setChartData}
+        onModelParamsChange={setModelParams}
+        trainingStatus={trainingStatus}
+      />
+      {/*<Mnist onEpochEnd={handleEpochEnd} onTrainingEnd={handleTrainingEnd} />*/}
       <Navbar>
         <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)
@@ -135,7 +130,7 @@ function App() {
         </TabPanel>
         <TabPanel value="2">
           <Datashape
-            url={URL}
+            url={url}
             originalData={originalData}
             filteredData={data}
             tensors={tensors}

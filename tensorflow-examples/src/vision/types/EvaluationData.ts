@@ -19,6 +19,8 @@ export const isEvaluation2DData = (items: unknown): items is Evaluation2DData =>
   isArray(items) &&
   items.length === 2 &&
   isArray(items[0]) &&
+  items[0].length > 0 &&
   isArray(items[1]) &&
+  items[1].length > 0 &&
   items[0].every((item) => isNumber(item)) &&
   items[1].every((item) => isNumber(item));
