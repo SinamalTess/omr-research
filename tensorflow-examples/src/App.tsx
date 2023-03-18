@@ -18,6 +18,7 @@ import { Datashape } from "./vision/UI/views/Datashape";
 import { filterCarsData } from "./vision/adapters";
 import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
 import { AxesKeys } from "./vision/types/AxesKeys";
+import {Mnist} from "./vision/UI/components/Mnist";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 
@@ -97,6 +98,7 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
+      {/*<Mnist onEpochEnd={handleEpochEnd} />*/}
       <Navbar>
         <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)

@@ -9,6 +9,7 @@ import { BaseChartOptions } from "../../../types";
 import React from "react";
 import { Grid } from "./Grid";
 import { Axes } from "./Axes";
+import { useTheme } from "@mui/material";
 
 export interface LineChartOptions extends BaseChartOptions {
   xKey: string;
@@ -23,6 +24,8 @@ interface LineChartProps {
 
 export const LineChart = ({ data, options }: LineChartProps) => {
   const { dataKeys, yKey, xKey } = options;
+  const theme = useTheme();
+  const colors = [theme.palette.primary.main, theme.palette.secondary.main];
 
   return (
     <ResponsiveContainer width="100%" height={300}>
@@ -31,15 +34,18 @@ export const LineChart = ({ data, options }: LineChartProps) => {
         {Axes({ x: { key: xKey }, y: { key: yKey } })}
         <Legend />
         <Tooltip />
-        {dataKeys.map((dataKey) => (
-          <Line
-            key={dataKey}
-            type="monotone"
-            dataKey={dataKey}
-            stroke="#8884d8"
-            dot={false}
-          />
-        ))}
+        {dataKeys.map((dataKey, i) => {
+          const stroke = colors[i] ?? colors[0]
+          return (
+            <Line
+              key={dataKey}
+              type="monotone"
+              dataKey={dataKey}
+              stroke={stroke}
+              dot={false}
+            />
+          );
+        })}
       </ReLineChart>
     </ResponsiveContainer>
   );

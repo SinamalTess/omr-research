@@ -5,15 +5,18 @@ import { ImageTensor } from "./Visualizations";
 import { getModel, startTraining } from "../../model/digits";
 
 const modelParams = {
-  epochs: 10
+  epochs: 10,
+};
+
+interface MnistProps {
+  onEpochEnd: Function;
 }
 
-export const Mnist = () => {
+export const Mnist = ({ onEpochEnd }: MnistProps) => {
   const [imageTensors, setImageTensors] = useState<tf.Tensor<tf.Rank>[]>([]);
   const model = getModel();
 
-  const handleEpochEnd = () => {}
-  const handleTrainingEnd = () => {}
+  const handleTrainingEnd = () => {};
 
   useEffect(() => {
     const data = new MnistData();
@@ -37,7 +40,7 @@ export const Mnist = () => {
 
       startTraining(model, data, {
         modelParams,
-        onEpochEnd: handleEpochEnd,
+        onEpochEnd: onEpochEnd,
         onTrainingEnd: handleTrainingEnd,
       });
     });

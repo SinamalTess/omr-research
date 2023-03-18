@@ -1,7 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
-import * as tfvis from "@tensorflow/tfjs-vis";
 import { compileModel } from "./compile";
-import { NormalizationData } from "./test";
+import {NormalizationData, showAccuracy, showConfusion} from "./test";
 import { MnistData } from "../../data";
 
 interface TrainingConfig {
@@ -24,6 +23,8 @@ export const startTraining = (
   const { onEpochEnd, onTrainingEnd, modelParams } = config;
 
   trainModel(model, modelParams, onEpochEnd, data).then((History) => {
+    showAccuracy(model, data)
+    showConfusion(model, data)
     // const losses = History.history.loss;
     // const finalLoss = losses[Math.max(losses.length - 1, 0)];
     // const predictedPoints = getPredictions(model, tensors);
@@ -69,15 +70,6 @@ const trainModel = async (
 ) => {
   const { epochs } = config;
   compileModel(model);
-  // val_loss = loss on the validation set
-  // val_acc = accuracy on the validation set
-  const metrics = ["loss", "val_loss", "acc", "val_acc"];
-  const container = {
-    name: "Model Training",
-    tab: "Model",
-    styles: { height: "1000px" },
-  };
-  const fitCallbacks = tfvis.show.fitCallbacks(container, metrics);
 
   const BATCH_SIZE = 512;
 
@@ -88,6 +80,13 @@ const trainModel = async (
     validationData: [testXs, testYs],
     epochs: 10,
     shuffle: true,
-    callbacks: fitCallbacks,
+    callbacks: {
+      onEpochEnd: (epoch, logs) => {
+        onEpochEnd({
+          epoch: epoch + 1,
+          ...logs
+        });
+      },
+    },
   });
 };
