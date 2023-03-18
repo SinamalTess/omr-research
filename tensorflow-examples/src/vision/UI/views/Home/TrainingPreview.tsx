@@ -6,30 +6,28 @@ interface TrainingPreviewProps {
   data: TrainingData[];
 }
 
-const getOptions = (label: "mse" | "loss") => ({
+const getOptions = (label: keyof TrainingData) => ({
   yKey: label,
   xKey: "epoch",
   dataKeys: [label],
 });
 
 export const TrainingPreview = ({ data }: TrainingPreviewProps) => {
-  const lossData = data.map((value) => ({
-    loss: value.loss,
-    epoch: value.epoch,
-  }));
+  const keys = data[0] ? Object.keys(data[0]) as Array<keyof TrainingData> : [];
+  const metrics  = keys ? keys.filter((key) => key !== "epoch") : [];
 
-  const mseData = data.map((value) => ({
-    mse: value.mse,
-    epoch: value.epoch,
-  }));
-
-  const optionsLoss = getOptions("loss");
-  const optionsMse = getOptions("mse");
+  const trainingData = metrics.map((metric) =>
+    data.map((value) => ({
+      [metric]: value[metric],
+      epoch: value.epoch,
+    }))
+  );
 
   return (
     <>
-      <LineChart data={lossData} options={optionsLoss} />
-      <LineChart data={mseData} options={optionsMse} />
+      {trainingData.map((data, i) => (
+        <LineChart data={data} options={getOptions(metrics[i])} />
+      ))}
     </>
   );
 };
