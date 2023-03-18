@@ -1,17 +1,12 @@
 import * as tf from "@tensorflow/tfjs";
 import { compileModel } from "./compile";
-import {NormalizationData, showAccuracy, showConfusion} from "./test";
+import { showAccuracy, showConfusion} from "./test";
 import { MnistData } from "../../data";
 
 interface TrainingConfig {
   onEpochEnd: Function;
   onTrainingEnd: Function;
   modelParams: ModelConfig;
-}
-
-export interface Tensors extends NormalizationData {
-  normalizedInputs: tf.Tensor<tf.Rank>;
-  normalizedLabels: tf.Tensor<tf.Rank>;
 }
 
 export const startTraining = (

@@ -1,5 +1,4 @@
 import * as tf from "@tensorflow/tfjs";
-import * as tfvis from "@tensorflow/tfjs-vis";
 import { MnistData } from "../../data";
 
 const classNames = [
@@ -37,23 +36,23 @@ export const getPredictions = (model: tf.LayersModel, data: MnistData) => {
 
 export async function showAccuracy(model: tf.LayersModel, data: MnistData) {
   const [preds, labels] = getPredictions(model, data);
-  const classAccuracy = await tfvis.metrics.perClassAccuracy(labels, preds);
-  const container = { name: "Accuracy", tab: "Evaluation" };
-  tfvis.show.perClassAccuracy(container, classAccuracy, classNames).then(() => {
-    labels.dispose();
-  });
+  // const classAccuracy = await tfvis.metrics.perClassAccuracy(labels, preds);
+  // const container = { name: "Accuracy", tab: "Evaluation" };
+  // tfvis.show.perClassAccuracy(container, classAccuracy, classNames).then(() => {
+  //   labels.dispose();
+  // });
 }
 
 export async function showConfusion(model: tf.LayersModel, data: MnistData) {
   const [preds, labels] = getPredictions(model, data);
-  const confusionMatrix = await tfvis.metrics.confusionMatrix(labels, preds);
-  const container = { name: "Confusion Matrix", tab: "Evaluation" };
-  tfvis.render
-    .confusionMatrix(container, {
-      values: confusionMatrix,
-      tickLabels: classNames,
-    })
-    .then(() => {
-      labels.dispose();
-    });
+  // const confusionMatrix = await tfvis.metrics.confusionMatrix(labels, preds);
+  // const container = { name: "Confusion Matrix", tab: "Evaluation" };
+  // tfvis.render
+  //   .confusionMatrix(container, {
+  //     values: confusionMatrix,
+  //     tickLabels: classNames,
+  //   })
+  //   .then(() => {
+  //     labels.dispose();
+  //   });
 }

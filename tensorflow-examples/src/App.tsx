@@ -98,7 +98,7 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      {/*<Mnist onEpochEnd={handleEpochEnd} />*/}
+      <Mnist onEpochEnd={handleEpochEnd} />
       <Navbar>
         <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)

@@ -12,15 +12,23 @@ interface MnistProps {
   onEpochEnd: Function;
 }
 
+const data = new MnistData();
+const model = getModel();
+
 export const Mnist = ({ onEpochEnd }: MnistProps) => {
   const [imageTensors, setImageTensors] = useState<tf.Tensor<tf.Rank>[]>([]);
-  const model = getModel();
 
   const handleTrainingEnd = () => {};
 
   useEffect(() => {
-    const data = new MnistData();
+    startTraining(model, data, {
+      modelParams,
+      onEpochEnd: onEpochEnd,
+      onTrainingEnd: handleTrainingEnd,
+    });
+  }, [imageTensors]);
 
+  useEffect(() => {
     data.load().then(() => {
       const examples = data.nextTestBatch(20);
       const numExamples = examples.inputs.shape[0];
@@ -37,19 +45,13 @@ export const Mnist = ({ onEpochEnd }: MnistProps) => {
       }
 
       setImageTensors(_imageTensors);
-
-      startTraining(model, data, {
-        modelParams,
-        onEpochEnd: onEpochEnd,
-        onTrainingEnd: handleTrainingEnd,
-      });
     });
   }, []);
 
   return (
     <>
       {imageTensors.map((tensor) => (
-        <ImageTensor imageTensor={tensor} />
+        <ImageTensor imageTensor={tensor} key={tensor.id} />
       ))}
     </>
   );
