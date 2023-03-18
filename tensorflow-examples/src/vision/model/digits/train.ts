@@ -9,6 +9,10 @@ interface TrainingConfig {
   modelParams: ModelConfig;
 }
 
+interface ModelConfig {
+  epochs: number;
+}
+
 export const startTraining = (
   model: tf.LayersModel,
   data: MnistData,
@@ -24,10 +28,6 @@ export const startTraining = (
     onTrainingEnd([predictions, labels], finalLoss, labels);
   });
 };
-
-interface ModelConfig {
-  epochs: number;
-}
 
 const getValidationData = (data: MnistData) => {
   const TRAIN_DATA_SIZE = 5500;
@@ -71,7 +71,7 @@ const trainModel = async (
   return model.fit(trainXs, trainYs, {
     batchSize: BATCH_SIZE,
     validationData: [testXs, testYs],
-    epochs: 10,
+    epochs,
     shuffle: true,
     callbacks: {
       onEpochEnd: (epoch, logs) => {

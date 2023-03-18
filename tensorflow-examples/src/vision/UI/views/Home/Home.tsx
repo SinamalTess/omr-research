@@ -1,11 +1,10 @@
 import { ModelSummaryTable, ScatterChartOptions } from "../../components";
 import React from "react";
 import { MainPreview, Sidebar, Dashboard } from "../../components";
-import { Coordinates } from "../../../domain";
-import * as tf from "@tensorflow/tfjs";
+import { Coordinates, TrainingData } from "../../../domain";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
-import { EvaluationData, AxesKeys, TrainingData } from "../../../types";
+import { EvaluationData, AxesKeys } from "../../../types";
 import { Sequential } from "@tensorflow/tfjs";
 
 interface HomeProps {
@@ -35,15 +34,11 @@ export const Home = ({
   return (
     <Dashboard className={className}>
       <MainPreview>
-        {options.yKey && options.xKey ? (
-          <DataPreview
-            data={dataPreview}
-            options={options as ScatterChartOptions}
-            evaluationData={evaluationData}
-          />
-        ) : (
-          <></>
-        )}
+        <DataPreview
+          data={dataPreview}
+          options={options as ScatterChartOptions}
+          evaluationData={evaluationData}
+        />
       </MainPreview>
       <Sidebar>
         {model ? <ModelSummaryTable model={model} /> : <></>}

@@ -3,37 +3,47 @@ import * as tf from "@tensorflow/tfjs";
 import { useEffect, useState } from "react";
 import { ImageTensor } from "../Visualizations";
 import { getModel, startTraining } from "../../../model/digits";
-
-const modelParams = {
-  epochs: 10,
-};
-
-interface MnistProps {
-  onEpochEnd: Function;
-  onTrainingEnd: Function;
-}
+import { ModelController } from "../../../domain/modelController.entity";
 
 const data = new MnistData();
-const model = getModel();
-const NB_PREVIEW_IMAGES = 20
+const NB_PREVIEW_IMAGES = 20;
+const TITLE = "Handwritten digit recognition";
 
-export const Mnist = ({ onEpochEnd, onTrainingEnd }: MnistProps) => {
+export const Mnist = ({
+  trainingStatus,
+  epochs,
+  onEpochEnd,
+  onTrainingEnd,
+  onModelChange,
+  onTitleChange,
+}: ModelController) => {
   const [imageTensors, setImageTensors] = useState<tf.Tensor<tf.Rank>[]>([]);
+  const [model, setModel] = useState(getModel());
 
   useEffect(() => {
-    startTraining(model, data, {
-      modelParams,
-      onEpochEnd: onEpochEnd,
-      onTrainingEnd: onTrainingEnd,
-    });
-  }, [imageTensors]);
+    const modelParams = {
+      epochs,
+    };
+
+    if (trainingStatus === "training") {
+      setModel(getModel());
+      onModelChange(model);
+
+      startTraining(model, data, {
+        modelParams,
+        onEpochEnd: onEpochEnd,
+        onTrainingEnd: onTrainingEnd,
+      });
+    }
+  }, [trainingStatus, epochs]);
 
   useEffect(() => {
+    onTitleChange?.(TITLE);
     data.load().then(() => {
       const examples = data.nextTestBatch(NB_PREVIEW_IMAGES);
       const numExamples = examples.inputs.shape[0];
-      let _imageTensors: tf.Tensor<tf.Rank>[] = [];
 
+      let _imageTensors: tf.Tensor<tf.Rank>[] = [];
       for (let i = 0; i < numExamples; i++) {
         const newImageTensor = tf.tidy(() => {
           // Reshape the image to 28x28 px

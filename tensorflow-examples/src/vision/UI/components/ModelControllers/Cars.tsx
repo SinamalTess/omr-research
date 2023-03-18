@@ -1,26 +1,14 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { getModel, getModelParams, startTraining } from "../../../model/cars";
 import { useData } from "../../hooks";
 import { Car } from "../../../domain";
 import { dataToCoordinates, filterCarsData } from "../../../adapters";
 import { AxesKeys } from "../../../types";
 import { TrainingStatus } from "../../../../App";
-
-interface CarsProps {
-  epochs: number;
-  trainingStatus: TrainingStatus;
-  onEpochEnd: Function;
-  onTrainingEnd: Function;
-  onOriginalDataChange: Function;
-  onDataChange: Function;
-  onDataUrlChange: Function;
-  onModelChange: Function;
-  onAxesKeysChange: Function;
-  onChartDataChange: Function;
-  onModelParamsChange: Function;
-}
+import { ModelController } from "../../../domain/modelController.entity";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
+const TITLE = "Horsepower vs MPG (miles per gallon)";
 
 export const Cars = ({
   epochs,
@@ -34,7 +22,8 @@ export const Cars = ({
   onAxesKeysChange,
   onChartDataChange,
   onModelParamsChange,
-}: CarsProps) => {
+  onTitleChange,
+}: ModelController) => {
   const [originalData] = useData<Car[]>(URL, []);
   const [model, setModel] = useState(getModel());
   const data = filterCarsData(originalData);
@@ -42,10 +31,10 @@ export const Cars = ({
   const chartData = dataToCoordinates(data, axesKeys[0], axesKeys[1]);
 
   useEffect(() => {
-    if (trainingStatus === 'training') {
-      setModel(getModel())
+    if (trainingStatus === "training") {
+      setModel(getModel());
       const { modelParams } = getModelParams(data, epochs, axesKeys);
-      onModelChange(model)
+      onModelChange(model);
 
       startTraining(model, data, {
         modelParams,
@@ -57,9 +46,10 @@ export const Cars = ({
   }, [trainingStatus]);
 
   useEffect(() => {
-    onDataUrlChange(URL);
+    onDataUrlChange?.(URL);
     onModelChange(model);
-    onAxesKeysChange(axesKeys);
+    onTitleChange?.(TITLE);
+    onAxesKeysChange?.(axesKeys);
   }, []);
 
   useEffect(() => {
@@ -68,7 +58,7 @@ export const Cars = ({
 
       onOriginalDataChange(originalData);
       onDataChange(data);
-      onChartDataChange(chartData);
+      onChartDataChange?.(chartData);
       onModelParamsChange(modelParams);
       onModelChange(model);
     }

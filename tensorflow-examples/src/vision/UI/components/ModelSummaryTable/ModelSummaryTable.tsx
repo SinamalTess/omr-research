@@ -26,7 +26,7 @@ const getRow = (layer: tf.layers.Layer, i: number, model: tf.LayersModel) => {
   const output = JSON.stringify(outputShape);
   const params = layer.countParams();
   // @ts-ignore
-  const activationFunction = layer.activation.constructor.name ?? "";
+  const activationFunction = layer.activation?.constructor.name ?? "";
   // @ts-ignore
   const units = layer.units ?? 0;
   const typeWithChip = (
