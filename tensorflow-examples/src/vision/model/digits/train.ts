@@ -1,6 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
 import { compileModel } from "./compile";
-import { showAccuracy, showConfusion} from "./test";
+import { getPredictions } from "./test";
 import { MnistData } from "../../data";
 
 interface TrainingConfig {
@@ -18,12 +18,10 @@ export const startTraining = (
   const { onEpochEnd, onTrainingEnd, modelParams } = config;
 
   trainModel(model, modelParams, onEpochEnd, data).then((History) => {
-    showAccuracy(model, data)
-    showConfusion(model, data)
-    // const losses = History.history.loss;
-    // const finalLoss = losses[Math.max(losses.length - 1, 0)];
-    // const predictedPoints = getPredictions(model, tensors);
-    // onTrainingEnd(predictedPoints, finalLoss);
+    const [predictions, labels] = getPredictions(model, data);
+    const losses = History.history.loss;
+    const finalLoss = losses[Math.max(losses.length - 1, 0)];
+    onTrainingEnd([predictions, labels], finalLoss, labels);
   });
 };
 
@@ -79,7 +77,7 @@ const trainModel = async (
       onEpochEnd: (epoch, logs) => {
         onEpochEnd({
           epoch: epoch + 1,
-          ...logs
+          ...logs,
         });
       },
     },

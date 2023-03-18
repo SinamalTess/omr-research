@@ -10,23 +10,50 @@ import {
 } from "recharts";
 import { ChartCoordinate } from "recharts/types/util/types";
 import { Axes } from "../../components/Visualizations/Axes";
-import { Coordinates } from "../../../domain";
+import { StyledTable } from "../../components/StyledTable";
+import {
+  Evaluation2DData,
+  EvaluationData,
+  isEvaluation2DData,
+} from "../../../types";
 
 interface DataPreviewProps {
   data: ChartCoordinate[];
   options: ScatterChartOptions;
-  predictions: Coordinates[];
+  evaluationData?: EvaluationData;
 }
+
+interface TableTestProps {
+  evaluationData: Evaluation2DData;
+}
+
+const TableTest = ({ evaluationData }: TableTestProps) => {
+  const headings = ["predictions", "labels"];
+  const [predictions, labels] = evaluationData;
+  const rows = predictions.map((prediction, i) => ({
+    key: "test",
+    content: [{ key: "yooho", content: <>{prediction}</> }, { key: "yooho", content: <>{labels[i]}</> }],
+  }));
+
+  return <StyledTable headings={headings} rows={rows} />;
+};
 
 export const DataPreview = ({
   data,
   options,
-  predictions,
+  evaluationData,
 }: DataPreviewProps) => {
   const { name, yKey, xKey } = options;
   const _name = name ?? `${yKey} vs ${xKey}`;
+  const hasEvaluationData = Boolean(evaluationData?.length);
 
-  return (
+  if (!hasEvaluationData) return null;
+
+  const [predictions, labels] = evaluationData as EvaluationData;
+
+  return isEvaluation2DData(evaluationData) ? (
+    <TableTest evaluationData={evaluationData} />
+  ) : (
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart>
         {Grid()}

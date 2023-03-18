@@ -11,8 +11,6 @@ export const ImageTensor = ({ imageTensor }: ImageProps) => {
 
     useEffect(() => {
         if (!canvas) return;
-        console.log(imageTensor)
-        console.log(canvas)
         // @ts-ignore
         tf.browser.toPixels(imageTensor, canvas).then(() => {
             imageTensor.dispose();

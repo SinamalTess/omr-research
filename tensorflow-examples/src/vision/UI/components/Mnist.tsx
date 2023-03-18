@@ -10,21 +10,20 @@ const modelParams = {
 
 interface MnistProps {
   onEpochEnd: Function;
+  onTrainingEnd: Function;
 }
 
 const data = new MnistData();
 const model = getModel();
 
-export const Mnist = ({ onEpochEnd }: MnistProps) => {
+export const Mnist = ({ onEpochEnd, onTrainingEnd }: MnistProps) => {
   const [imageTensors, setImageTensors] = useState<tf.Tensor<tf.Rank>[]>([]);
-
-  const handleTrainingEnd = () => {};
 
   useEffect(() => {
     startTraining(model, data, {
       modelParams,
       onEpochEnd: onEpochEnd,
-      onTrainingEnd: handleTrainingEnd,
+      onTrainingEnd: onTrainingEnd,
     });
   }, [imageTensors]);
 

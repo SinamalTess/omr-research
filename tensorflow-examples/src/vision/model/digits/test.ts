@@ -1,23 +1,10 @@
 import * as tf from "@tensorflow/tfjs";
 import { MnistData } from "../../data";
 
-const classNames = [
-  "Zero",
-  "One",
-  "Two",
-  "Three",
-  "Four",
-  "Five",
-  "Six",
-  "Seven",
-  "Eight",
-  "Nine",
-];
-
-export const getPredictions = (model: tf.LayersModel, data: MnistData) => {
+export const getPredictionsTensors = (model: tf.LayersModel, data: MnistData) => {
   const IMAGE_WIDTH = 28;
   const IMAGE_HEIGHT = 28;
-  const TEST_DATA_SIZE = 1;
+  const TEST_DATA_SIZE = 2;
 
   const testData = data.nextTestBatch(TEST_DATA_SIZE);
   const testxs = testData.inputs.reshape([
@@ -28,31 +15,21 @@ export const getPredictions = (model: tf.LayersModel, data: MnistData) => {
   ]);
   const labels = testData.labels.argMax(-1);
   // @ts-ignore
-  const preds = model.predict(testxs).argMax(-1);
+  const predictions = model.predict(testxs).argMax(-1);
 
   testxs.dispose();
-  return [preds, labels];
+
+  return [predictions, labels];
 };
 
-export async function showAccuracy(model: tf.LayersModel, data: MnistData) {
-  const [preds, labels] = getPredictions(model, data);
-  // const classAccuracy = await tfvis.metrics.perClassAccuracy(labels, preds);
-  // const container = { name: "Accuracy", tab: "Evaluation" };
-  // tfvis.show.perClassAccuracy(container, classAccuracy, classNames).then(() => {
-  //   labels.dispose();
-  // });
-}
+export const getPredictions = (
+    model: tf.LayersModel,
+    data: MnistData
+) => {
+  const [preds, labels] = getPredictionsTensors(model, data);
 
-export async function showConfusion(model: tf.LayersModel, data: MnistData) {
-  const [preds, labels] = getPredictions(model, data);
-  // const confusionMatrix = await tfvis.metrics.confusionMatrix(labels, preds);
-  // const container = { name: "Confusion Matrix", tab: "Evaluation" };
-  // tfvis.render
-  //   .confusionMatrix(container, {
-  //     values: confusionMatrix,
-  //     tickLabels: classNames,
-  //   })
-  //   .then(() => {
-  //     labels.dispose();
-  //   });
-}
+  const predictions = [...preds.dataSync()]
+  const _labels = [...labels.dataSync()]
+
+  return [predictions, _labels]
+};

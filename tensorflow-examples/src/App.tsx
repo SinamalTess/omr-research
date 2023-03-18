@@ -5,8 +5,8 @@ import { Box, Tab, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Controls, Navbar } from "./vision/UI/components";
 import { useData } from "./vision/UI/hooks";
-import { TrainingData } from "./vision/types";
-import { Car, Coordinates } from "./vision/domain";
+import { TrainingData, EvaluationData } from "./vision/types";
+import { Car } from "./vision/domain";
 import {
   getModel,
   getModelParams,
@@ -18,7 +18,7 @@ import { Datashape } from "./vision/UI/views/Datashape";
 import { filterCarsData } from "./vision/adapters";
 import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
 import { AxesKeys } from "./vision/types/AxesKeys";
-import {Mnist} from "./vision/UI/components/Mnist";
+import { Mnist } from "./vision/UI/components/Mnist";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 
@@ -36,7 +36,7 @@ function App() {
   const [epochs, setEpochs] = useState(50);
   const [currentEpoch, setCurrentEpoch] = useState(0);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
-  const [predictions, setPredictions] = useState<Coordinates[]>([]);
+  const [evaluationData, setEvaluationData] = useState<EvaluationData>([[], []]);
   const [model, setModel] = useState(getModel());
   const [modelParams, setModelParams] = useState<ModelParams>();
   const tensors = modelParams ? modelParams.tensors : null;
@@ -58,7 +58,7 @@ function App() {
     setCurrentEpoch(0);
     setModel(getModel());
     setDataTraining([]);
-    setPredictions([]);
+    setEvaluationData([[], []]);
   };
 
   const handleEpochEnd = (trainingData: TrainingData) => {
@@ -67,9 +67,12 @@ function App() {
     setCurrentEpoch(epoch);
   };
 
-  const handleTrainingEnd = (predictions: Coordinates[], finalLoss: number) => {
+  const handleTrainingEnd = (
+    evaluationData: EvaluationData,
+    finalLoss: number
+  ) => {
     setTrainingLogs((prevState) => [...prevState, finalLoss]);
-    setPredictions(predictions);
+    setEvaluationData(evaluationData);
     setTrainingStatus("done");
   };
 
@@ -79,6 +82,7 @@ function App() {
       setTrainingStatus("training");
       startTraining(model, data, {
         modelParams,
+        axesKeys,
         onEpochEnd: handleEpochEnd,
         onTrainingEnd: handleTrainingEnd,
       });
@@ -98,7 +102,7 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Mnist onEpochEnd={handleEpochEnd} />
+      <Mnist onEpochEnd={handleEpochEnd} onTrainingEnd={handleTrainingEnd} />
       <Navbar>
         <Typography variant="h4" component="h1" color={"primary"}>
           Horsepower vs MPG (miles per gallon)
@@ -124,7 +128,7 @@ function App() {
           <Home
             model={model}
             axesKeys={axesKeys}
-            predictions={predictions}
+            evaluationData={evaluationData}
             dataPreview={chartData}
             dataTraining={dataTraining}
           />

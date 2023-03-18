@@ -7,11 +7,12 @@ import * as tf from "@tensorflow/tfjs";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
 import { AxesKeys } from "../../../types/AxesKeys";
+import { EvaluationData } from "../../../types/EvaluationData";
 
 interface HomeProps {
   className?: string;
   dataPreview: Coordinates[];
-  predictions: Coordinates[];
+  evaluationData?: EvaluationData;
   model: tf.LayersModel;
   dataTraining: TrainingData[];
   axesKeys: AxesKeys;
@@ -20,12 +21,12 @@ interface HomeProps {
 export const Home = ({
   className,
   dataPreview,
-  predictions,
+  evaluationData,
   dataTraining,
   model,
   axesKeys,
 }: HomeProps) => {
-  const [xKey, yKey] = axesKeys
+  const [xKey, yKey] = axesKeys;
 
   const options = {
     yKey,
@@ -38,7 +39,7 @@ export const Home = ({
         <DataPreview
           data={dataPreview}
           options={options}
-          predictions={predictions}
+          evaluationData={evaluationData}
         />
       </MainPreview>
       <Sidebar>

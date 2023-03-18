@@ -1,5 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
-import { Coordinates } from "../../domain";
+import {AxesKeys} from "../../types/AxesKeys";
+import {isObject} from "../../types/utils";
 
 export interface NormalizationData {
   inputMax: tf.Tensor<tf.Rank>;
@@ -11,28 +12,50 @@ export interface NormalizationData {
 // Generate predictions for a uniform range of numbers between 0 and 1;
 // We un-normalize the data by doing the inverse of the min-max scaling
 // that we did earlier.
-export const getPredictions = (
+const getPredictionsTensors = (
   model: tf.LayersModel,
   normalizationData: NormalizationData
-): Coordinates[] => {
+) => {
   const { inputMax, inputMin, labelMin, labelMax } = normalizationData;
 
   const [inputs, predictions] = tf.tidy(() => {
     const normalizedInputs = tf.linspace(0, 1, 100);
     const predictions = model.predict(normalizedInputs.reshape([100, 1]));
 
-    const unNormalizedInputs = normalizedInputs.mul(inputMax.sub(inputMin)).add(inputMin);
+    const unNormalizedInputs = normalizedInputs
+      .mul(inputMax.sub(inputMin))
+      .add(inputMin);
 
-    // @ts-ignore
-    const unNormalizedPredictions = predictions.mul(labelMax.sub(labelMin)).add(labelMin);
+    const unNormalizedPredictions = predictions
+      // @ts-ignore
+      .mul(labelMax.sub(labelMin))
+      .add(labelMin);
 
     // Un-normalize the data
-    return [unNormalizedInputs.dataSync(), unNormalizedPredictions.dataSync()];
+    return [unNormalizedInputs, unNormalizedPredictions];
   });
 
-  const predictedPoints = Array.from(inputs).map((value, i) => {
-    return { x: value, y: predictions[i] };
+  return [inputs, predictions]
+};
+
+export const getPredictions = (
+  model: tf.LayersModel,
+  normalizationData: NormalizationData,
+  data: unknown[],
+  axesKeys: AxesKeys
+) => {
+  const [inputs, predictions] = getPredictionsTensors(model, normalizationData);
+  const [_inputs, _predictions] = [inputs.dataSync(), predictions.dataSync()]
+  const [xKey, yKey] = axesKeys
+
+  const predictedPoints = Array.from(_inputs).map((value, i) => {
+    return { x: value, y: _predictions[i] };
   });
 
-  return predictedPoints;
+  const originalPoints = data.map((d) => ({
+    x: isObject(d) && xKey in d ? d[xKey] : null,
+    y: isObject(d) && yKey in d ? d[yKey] : null,
+  }));
+
+  return [predictedPoints, originalPoints];
 };

@@ -10,6 +10,7 @@ interface TrainingConfig {
   onEpochEnd: Function;
   onTrainingEnd: Function;
   modelParams: ModelParams;
+  axesKeys: AxesKeys;
 }
 
 export interface Tensors extends NormalizationData {
@@ -24,16 +25,16 @@ export interface ModelParams extends ModelConfig {
 export const startTraining = (
   model: tf.LayersModel,
   data: NormalizedCar[],
-  config: TrainingConfig
+  config: TrainingConfig,
 ) => {
   if (!data.length) return;
-  const { onEpochEnd, onTrainingEnd, modelParams } = config;
+  const { onEpochEnd, onTrainingEnd, modelParams, axesKeys } = config;
   const { tensors } = modelParams;
 
   trainModel(model, modelParams, onEpochEnd).then((History) => {
     const losses = History.history.loss;
     const finalLoss = losses[Math.max(losses.length - 1, 0)];
-    const predictedPoints = getPredictions(model, tensors);
+    const predictedPoints = getPredictions(model, tensors, data, axesKeys);
     onTrainingEnd(predictedPoints, finalLoss);
   });
 };
@@ -80,7 +81,7 @@ const trainModel = async (
       onEpochEnd: (epoch, logs) => {
         onEpochEnd({
           epoch: epoch + 1,
-          ...logs
+          ...logs,
         });
       },
     },
