@@ -2,10 +2,10 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-xtest("renders learn react link", () => {
+test("renders application", () => {
   render(<App />);
 
-  const linkElement = screen.getByText(/learn react/i);
+  const trainButton = screen.getByText(/Train model/i);
 
-  expect(linkElement).toBeInTheDocument();
+  expect(trainButton).toBeInTheDocument();
 });

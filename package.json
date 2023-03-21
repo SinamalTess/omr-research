@@ -60,6 +60,7 @@
     "commitiquette": "^1.2.1",
     "commitizen": "^4.3.0",
     "husky": "^8.0.0",
+    "jest-canvas-mock": "^2.4.0",
     "lint-staged": ">=10"
   },
   "config": {
