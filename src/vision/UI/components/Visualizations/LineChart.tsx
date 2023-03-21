@@ -35,7 +35,7 @@ export const LineChart = ({ data, options }: LineChartProps) => {
         <Legend />
         <Tooltip />
         {dataKeys.map((dataKey, i) => {
-          const stroke = colors[i] ?? colors[0]
+          const stroke = colors[i] ?? colors[0];
           return (
             <Line
               key={dataKey}

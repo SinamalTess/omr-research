@@ -25,7 +25,7 @@ export interface ModelParams extends ModelConfig {
 export const startTraining = (
   model: tf.LayersModel,
   data: NormalizedCar[],
-  config: TrainingConfig,
+  config: TrainingConfig
 ) => {
   if (!data.length) return;
   const { onEpochEnd, onTrainingEnd, modelParams, axesKeys } = config;

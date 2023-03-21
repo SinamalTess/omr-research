@@ -1,7 +1,10 @@
 import * as tf from "@tensorflow/tfjs";
 import { MnistData } from "../../data";
 
-export const getPredictionsTensors = (model: tf.LayersModel, data: MnistData) => {
+export const getPredictionsTensors = (
+  model: tf.LayersModel,
+  data: MnistData
+) => {
   const IMAGE_WIDTH = 28;
   const IMAGE_HEIGHT = 28;
   const TEST_DATA_SIZE = 2;
@@ -22,14 +25,11 @@ export const getPredictionsTensors = (model: tf.LayersModel, data: MnistData) =>
   return [predictions, labels];
 };
 
-export const getPredictions = (
-    model: tf.LayersModel,
-    data: MnistData
-) => {
+export const getPredictions = (model: tf.LayersModel, data: MnistData) => {
   const [preds, labels] = getPredictionsTensors(model, data);
 
-  const predictions = [...preds.dataSync()]
-  const _labels = [...labels.dataSync()]
+  const predictions = [...preds.dataSync()];
+  const _labels = [...labels.dataSync()];
 
-  return [predictions, _labels]
+  return [predictions, _labels];
 };

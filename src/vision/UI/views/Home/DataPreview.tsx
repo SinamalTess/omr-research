@@ -47,12 +47,14 @@ export const DataPreview = ({
 
   if (isEvaluation2DData(evaluationData))
     return <TableTest evaluationData={evaluationData} />;
+  else if (hasData)
+    return (
+      <ScatterPreview
+        data={data}
+        options={options}
+        predictions={predictions as Coordinates[]}
+      />
+    );
 
-  else if (hasData) return <ScatterPreview
-      data={data}
-      options={options}
-      predictions={predictions as Coordinates[]}
-  />
-
-  return null
+  return null;
 };

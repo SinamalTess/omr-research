@@ -1,6 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
-import {AxesKeys} from "../../types";
-import {isObject} from "../../types/utils";
+import { AxesKeys } from "../../types";
+import { isObject } from "../../types/utils";
 
 export interface NormalizationData {
   inputMax: tf.Tensor<tf.Rank>;
@@ -35,7 +35,7 @@ const getPredictionsTensors = (
     return [unNormalizedInputs, unNormalizedPredictions];
   });
 
-  return [inputs, predictions]
+  return [inputs, predictions];
 };
 
 export const getPredictions = (
@@ -45,8 +45,8 @@ export const getPredictions = (
   axesKeys: AxesKeys
 ) => {
   const [inputs, predictions] = getPredictionsTensors(model, normalizationData);
-  const [_inputs, _predictions] = [inputs.dataSync(), predictions.dataSync()]
-  const [xKey, yKey] = axesKeys
+  const [_inputs, _predictions] = [inputs.dataSync(), predictions.dataSync()];
+  const [xKey, yKey] = axesKeys;
 
   const predictedPoints = Array.from(_inputs).map((value, i) => {
     return { [xKey]: value, [yKey]: _predictions[i] };

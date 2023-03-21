@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs';
+import * as tf from "@tensorflow/tfjs";
 
 const IMAGE_SIZE = 784;
 const NUM_CLASSES = 10;
@@ -10,9 +10,9 @@ const NUM_TRAIN_ELEMENTS = Math.floor(TRAIN_TEST_RATIO * NUM_DATASET_ELEMENTS);
 const NUM_TEST_ELEMENTS = NUM_DATASET_ELEMENTS - NUM_TRAIN_ELEMENTS;
 
 const MNIST_IMAGES_SPRITE_PATH =
-    'https://storage.googleapis.com/learnjs-data/model-builder/mnist_images.png';
+  "https://storage.googleapis.com/learnjs-data/model-builder/mnist_images.png";
 const MNIST_LABELS_PATH =
-    'https://storage.googleapis.com/learnjs-data/model-builder/mnist_labels_uint8';
+  "https://storage.googleapis.com/learnjs-data/model-builder/mnist_labels_uint8";
 
 /**
  * A class that fetches the sprited MNIST dataset and returns shuffled batches.
@@ -43,7 +43,7 @@ export class MnistData {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    if (!ctx) return
+    if (!ctx) return;
 
     const imgRequest = new Promise<void>((resolve, reject) => {
       img.crossOrigin = "";
@@ -140,7 +140,11 @@ export class MnistData {
     });
   }
 
-  nextBatch(batchSize: number, data: [Float32Array, Uint8Array], index: Function) {
+  nextBatch(
+    batchSize: number,
+    data: [Float32Array, Uint8Array],
+    index: Function
+  ) {
     const batchImagesArray = new Float32Array(batchSize * IMAGE_SIZE);
     const batchLabelsArray = new Uint8Array(batchSize * NUM_CLASSES);
 

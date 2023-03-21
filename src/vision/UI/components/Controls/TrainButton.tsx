@@ -15,7 +15,7 @@ export const TrainButton = ({ isLoading, onClick }: TrainButtonProps) => {
       startIcon={<PlayArrow />}
       loadingPosition="start"
     >
-      {isLoading ? "Training..." : "Train model" }
+      {isLoading ? "Training..." : "Train model"}
     </LoadingButton>
   );
 };

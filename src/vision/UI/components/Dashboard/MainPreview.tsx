@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React, { ReactElement } from "react";
 
 interface MainPreviewProps {
-    children: ReactElement | ReactElement[];
+  children: ReactElement | ReactElement[];
 }
 
 export const MainPreview = ({ children }: MainPreviewProps) => {

@@ -1,3 +1,3 @@
 export interface BaseChartOptions {
-    name?: string;
+  name?: string;
 }

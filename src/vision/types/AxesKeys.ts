@@ -1,1 +1,1 @@
-export type AxesKeys = [xKey: string, yKey: string]
+export type AxesKeys = [xKey: string, yKey: string];

@@ -18,8 +18,18 @@ export const Axes = ({ x, y }: AxesProps) => {
   const colorAxes = theme.palette.grey[500];
   return (
     <>
-      <XAxis dataKey={x.key} stroke={colorAxes} unit={x.unit} type={x.type ?? "number"} />
-      <YAxis dataKey={y.key} stroke={colorAxes} unit={y.unit} type={y.type ?? "number"} />
+      <XAxis
+        dataKey={x.key}
+        stroke={colorAxes}
+        unit={x.unit}
+        type={x.type ?? "number"}
+      />
+      <YAxis
+        dataKey={y.key}
+        stroke={colorAxes}
+        unit={y.unit}
+        type={y.type ?? "number"}
+      />
     </>
   );
 };

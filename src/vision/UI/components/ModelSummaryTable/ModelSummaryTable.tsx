@@ -35,7 +35,15 @@ const getRow = (layer: tf.layers.Layer, i: number, model: tf.LayersModel) => {
     </>
   );
 
-  const row = [name, typeWithChip, input, output, params, units, activationFunction];
+  const row = [
+    name,
+    typeWithChip,
+    input,
+    output,
+    params,
+    units,
+    activationFunction,
+  ];
   const rowWithCellKeys = row.map((cell, i) => ({
     key: type + i,
     content: cell,

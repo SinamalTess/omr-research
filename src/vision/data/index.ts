@@ -1,1 +1,1 @@
-export * from './Mnist'
+export * from "./Mnist";

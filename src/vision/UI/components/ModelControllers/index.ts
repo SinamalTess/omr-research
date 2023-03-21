@@ -1,2 +1,2 @@
-export * from './Cars'
-export * from './Mnist'
+export * from "./Cars";
+export * from "./Mnist";
