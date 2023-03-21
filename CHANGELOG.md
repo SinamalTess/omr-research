@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](///compare/v1.6.0...v1.7.0) (2023-03-21)
+
+
+### Features
+
+* **vision:** add basic code to do digits recognision training 5287dae
+* **vision:** make Mnist model controller ready to be used d77cbf6
+* **vision:** run digits model and prepare predictions a6b3567
+* **vision:** show average and best training logs f655c15
+* **vision:** show layer name in the summaryModelTable 55ce1fc
+* **vision:** show logs of trainings in table 249eaa9
+* **vision:** show predictions for digits model 983cab1
+
+
+### Bug Fixes
+
+* **vision:** fix bug on tenser labels and inputs number 16f05de
+* **vision:** fix errors in the console 5e31576
+* **vision:** fix line chart not animating when training end e4afd27
+* **vision:** typescript bug and canvas not rendering 5415edd
+
 ## [1.6.0](///compare/v1.5.0...v1.6.0) (2023-03-12)
 
 
