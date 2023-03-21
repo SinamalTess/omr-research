@@ -15,4 +15,4 @@ You can build an image classifier using only dense layers, however, convolutiona
 
 Downsampling using max values in an image region instead of averaging.
 
-![img.png](../../imgs/max_pooling_2d.png)
+![img.png](./../imgs/max_pooling_2d.png)

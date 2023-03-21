@@ -9,7 +9,7 @@ Most deep learning computations are coded in C++.
 To run operations on the GPU, TensorFlow uses a library developed by NVIDIA called [CUDA](CUDA.md).
 This is why you need to install it if you want to use your GPU capabilities and why you can't use GPU from another manufacturer. 
 
-![Tensorflow arquitecture](../../imgs/tensorflow_arquitecture.png)
+![Tensorflow arquitecture](./../imgs/tensorflow_arquitecture.png)
 
 # Terminology
 
@@ -68,7 +68,7 @@ When using neural networks, the algorithm is a set of layers of neurons with ‘
 
 [But what is a neural network? | Chapter 1, Deep learning](https://www.youtube.com/watch?v=aircAruvnKk&t=963s&ab_channel=3Blue1Brown)
 
-![Neural Network](../../imgs/neural_networks.png)
+![Neural Network](./../imgs/neural_networks.png)
 
 ## Tensors
 
@@ -79,5 +79,5 @@ The elements of a Tensor are :
 - Its shape : The dimensions of the data, for example : `()` for scalar, `(n)` for vectors, `(n,m)` for 2D matrix of size `n x m` 
 - Its rank : number of dimensions `0` for scalar, `1` for vector, `2` for 2D matrix.
 
-![Neural Network](../../imgs/scalar-vector-matrix-tensor.jpeg)
+![Neural Network](./../imgs/scalar-vector-matrix-tensor.jpeg)
 
