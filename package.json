@@ -33,7 +33,8 @@
     "eject": "react-scripts eject",
     "commit": "cz",
     "release": "standard-version",
-    "format": "prettier --write src"
+    "format": "prettier --write src",
+    "postinstall": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -58,7 +59,8 @@
     "@commitlint/config-conventional": "^17.4.4",
     "commitiquette": "^1.2.1",
     "commitizen": "^4.3.0",
-    "prettier": "2.8.4"
+    "prettier": "2.8.4",
+    "husky": "^8.0.0"
   },
   "config": {
     "commitizen": {
