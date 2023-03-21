@@ -1,6 +1,6 @@
 import { TrainButton } from "./TrainButton";
 import { Grid } from "@mui/material";
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { EpochsInput } from "./EpochsInput";
 import { ProgressBar } from "./ProgressBar";
 

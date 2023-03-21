@@ -1,4 +1,4 @@
-import { InputAdornment, TextField, Typography } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import React, { ChangeEvent, KeyboardEvent } from "react";
 
 interface EpochsInputProps {

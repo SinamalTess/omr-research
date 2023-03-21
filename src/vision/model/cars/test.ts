@@ -1,5 +1,5 @@
 import * as tf from "@tensorflow/tfjs";
-import {AxesKeys} from "../../types/AxesKeys";
+import {AxesKeys} from "../../types";
 import {isObject} from "../../types/utils";
 
 export interface NormalizationData {

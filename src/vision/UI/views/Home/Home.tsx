@@ -1,7 +1,7 @@
 import { ModelSummaryTable, ScatterChartOptions } from "../../components";
 import React from "react";
 import { MainPreview, Sidebar, Dashboard } from "../../components";
-import { Coordinates, TrainingData } from "../../../domain";
+import { TrainingData } from "../../../domain";
 import { DataPreview } from "./DataPreview";
 import { TrainingPreview } from "./TrainingPreview";
 import { EvaluationData, AxesKeys } from "../../../types";

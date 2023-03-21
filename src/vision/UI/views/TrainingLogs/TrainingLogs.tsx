@@ -1,4 +1,4 @@
-import { Chip, Grid, Typography, useTheme } from "@mui/material";
+import { Chip, Grid, useTheme } from "@mui/material";
 import { StyledTable } from "../../components/StyledTable";
 
 const HEADINGS = ["Iteration", "Loss", "Compared to previous", "Model"];

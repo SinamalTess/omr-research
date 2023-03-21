@@ -4,7 +4,7 @@ import { Tensor } from "@tensorflow/tfjs";
 import { NormalizedCar } from "../../domain";
 import { compileModel } from "./compile";
 import { NormalizationData, getPredictions } from "./test";
-import { AxesKeys } from "../../types/AxesKeys";
+import { AxesKeys } from "../../types";
 
 interface TrainingConfig {
   onEpochEnd: Function;
