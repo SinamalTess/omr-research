@@ -57,6 +57,8 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
+    "@tensorflow/tfjs-node": "^4.2.0",
+    "@tensorflow/tfjs-node-gpu": "^4.2.0",
     "commitiquette": "^1.2.1",
     "commitizen": "^4.3.0",
     "husky": "^8.0.0",
