@@ -20,7 +20,6 @@ export const Cars = ({
   onDataChange,
   onModelChange,
   onAxesKeysChange,
-  onChartDataChange,
   onModelParamsChange,
   onTitleChange,
 }: ModelController) => {
@@ -28,7 +27,6 @@ export const Cars = ({
   const [model, setModel] = useState(getModel());
   const data = filterCarsData(originalData);
   const axesKeys: AxesKeys = ["horsepower", "mpg"];
-  const chartData = dataToCoordinates(data, axesKeys[0], axesKeys[1]);
 
   useEffect(() => {
     if (trainingStatus === "training") {
@@ -58,7 +56,6 @@ export const Cars = ({
 
       onOriginalDataChange(originalData);
       onDataChange(data);
-      onChartDataChange?.(chartData);
       onModelParamsChange(modelParams);
       onModelChange(model);
     }

@@ -1,6 +1,5 @@
 import { ScatterChartOptions } from "../../components";
 import React from "react";
-import { ChartCoordinate } from "recharts/types/util/types";
 import { StyledTable } from "../../components/StyledTable";
 import {
   Evaluation2DData,
@@ -11,7 +10,7 @@ import { ScatterPreview } from "./ScatterPreview";
 import { Coordinates } from "../../../domain";
 
 interface DataPreviewProps {
-  data: ChartCoordinate[];
+  data: unknown[];
   options: ScatterChartOptions;
   evaluationData?: EvaluationData;
 }

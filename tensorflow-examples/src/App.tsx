@@ -10,7 +10,7 @@ import { Datashape } from "./vision/UI/views/Datashape";
 import { TrainingLogs } from "./vision/UI/views/TrainingLogs";
 import { Mnist } from "./vision/UI/components/ModelControllers/Mnist";
 import { Cars } from "./vision/UI/components/ModelControllers";
-import { Coordinates, TrainingData } from "./vision/domain";
+import { TrainingData } from "./vision/domain";
 import { Sequential } from "@tensorflow/tfjs";
 
 export type TrainingStatus = "waiting" | "training" | "done";
@@ -29,7 +29,6 @@ function App() {
   const [epochs, setEpochs] = useState(50);
   const [currentEpoch, setCurrentEpoch] = useState(0);
   const [dataTraining, setDataTraining] = useState<TrainingData[]>([]);
-  const [chartData, setChartData] = useState<Coordinates[]>([]);
   const [evaluationData, setEvaluationData] = useState<EvaluationData>(
     DEFAULT_EVALUATION_DATA
   );
@@ -85,7 +84,7 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Mnist
+      <Cars
         epochs={epochs}
         onEpochEnd={handleEpochEnd}
         onTrainingEnd={handleTrainingEnd}
@@ -94,7 +93,6 @@ function App() {
         onDataUrlChange={setUrl}
         onModelChange={setModel}
         onAxesKeysChange={setAxesKeys}
-        onChartDataChange={setChartData}
         onModelParamsChange={setModelParams}
         onTitleChange={setTitle}
         trainingStatus={trainingStatus}
@@ -125,7 +123,7 @@ function App() {
             model={model}
             axesKeys={axesKeys}
             evaluationData={evaluationData}
-            dataPreview={chartData}
+            dataPreview={data}
             dataTraining={dataTraining}
           />
         </TabPanel>

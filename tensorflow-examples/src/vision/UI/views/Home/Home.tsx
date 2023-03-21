@@ -9,7 +9,7 @@ import { Sequential } from "@tensorflow/tfjs";
 
 interface HomeProps {
   className?: string;
-  dataPreview: Coordinates[];
+  dataPreview: unknown[];
   evaluationData?: EvaluationData;
   model: Sequential | null;
   dataTraining: TrainingData[];

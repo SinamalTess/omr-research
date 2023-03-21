@@ -49,12 +49,12 @@ export const getPredictions = (
   const [xKey, yKey] = axesKeys
 
   const predictedPoints = Array.from(_inputs).map((value, i) => {
-    return { x: value, y: _predictions[i] };
+    return { [xKey]: value, [yKey]: _predictions[i] };
   });
 
   const originalPoints = data.map((d) => ({
-    x: isObject(d) && xKey in d ? d[xKey] : null,
-    y: isObject(d) && yKey in d ? d[yKey] : null,
+    [xKey]: isObject(d) && xKey in d ? d[xKey] : null,
+    [yKey]: isObject(d) && yKey in d ? d[yKey] : null,
   }));
 
   return [predictedPoints, originalPoints];

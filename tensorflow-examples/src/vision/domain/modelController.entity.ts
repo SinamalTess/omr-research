@@ -1,7 +1,6 @@
 import { TrainingStatus } from "../../App";
 import { Sequential } from "@tensorflow/tfjs";
 import { AxesKeys, EvaluationData } from "../types";
-import { Coordinates } from "./coordinates.entity";
 import { TrainingData } from "./trainingData.entity";
 import { ModelParams } from "../model/cars";
 
@@ -15,7 +14,6 @@ export interface ModelController {
   onDataUrlChange?: (url: string) => void;
   onModelChange: (model: Sequential) => void;
   onAxesKeysChange?: (axesKeys: AxesKeys) => void;
-  onChartDataChange?: (coordinates: Coordinates[]) => void;
   onModelParamsChange: (modelParams: ModelParams) => void;
   onTitleChange?: (title: string) => void;
 }

@@ -9,12 +9,10 @@ import {
 import { Grid, ScatterChartOptions } from "../../components";
 import { Axes } from "../../components/Visualizations/Axes";
 import React from "react";
-import { ChartCoordinate } from "recharts/types/util/types";
-import { EvaluationData } from "../../../types";
 import { Coordinates } from "../../../domain";
 
 interface ScatterPreviewProps {
-  data: ChartCoordinate[];
+  data: unknown[];
   options: ScatterChartOptions;
   predictions: Coordinates[];
 }
@@ -30,7 +28,7 @@ export const ScatterPreview = ({
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart>
         {Grid()}
-        {Axes({ x: { key: "x", unit: xKey }, y: { key: "y", unit: yKey } })}
+        {Axes({ x: { key: xKey, unit: xKey }, y: { key: yKey, unit: yKey } })}
         <Legend />
         <Tooltip />
         <Scatter name={_name} fill="#8884d8" data={data} />
@@ -39,7 +37,7 @@ export const ScatterPreview = ({
             name={"predictions"}
             fill="#8884d8"
             data={predictions}
-            dataKey={"y"}
+            dataKey={yKey}
             strokeWidth={3}
             dot={false}
           />
