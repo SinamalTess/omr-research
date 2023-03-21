@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { getModel, getModelParams, startTraining } from "../../../model/cars";
 import { useData } from "../../hooks";
-import { Car } from "../../../domain";
+import { Car, ModelController } from "../../../domain";
 import { filterCarsData } from "../../../adapters";
 import { AxesKeys } from "../../../types";
-import { ModelController } from "../../../domain/modelController.entity";
 
 const URL = "https://storage.googleapis.com/tfjs-tutorials/carsData.json";
 const TITLE = "Horsepower vs MPG (miles per gallon)";

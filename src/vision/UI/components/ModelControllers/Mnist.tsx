@@ -3,7 +3,7 @@ import * as tf from "@tensorflow/tfjs";
 import { useEffect, useState } from "react";
 import { ImageTensor } from "../Visualizations";
 import { getModel, startTraining } from "../../../model/digits";
-import { ModelController } from "../../../domain/modelController.entity";
+import { ModelController } from "../../../domain";
 
 const data = new MnistData();
 const NB_PREVIEW_IMAGES = 20;
